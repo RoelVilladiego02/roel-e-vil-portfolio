@@ -25,6 +25,16 @@ const handleSayHello = () => {
   window.location.href = `mailto:${profile.email}`;
 };
 
+const handleDownloadResume = () => {
+  const link = document.createElement('a');
+  link.href = '/Roel_Villadiego_Resume.pdf';
+  link.download = 'Roel_Villadiego_Resume.pdf';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  closeMobileMenu();
+};
+
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 10;
 };
@@ -81,6 +91,16 @@ onUnmounted(() => {
         >
           {{ link.label }}
         </a>
+        <button
+          @click="handleDownloadResume"
+          class="font-body text-sm font-medium tracking-wide flex items-center gap-2 px-3 py-2 rounded-lg border border-warm-gray dark:border-dark-gray hover:bg-off-white dark:hover:bg-dark-gray transition-colors duration-200 text-black dark:text-white/80 hover:text-black dark:hover:text-white"
+          :aria-label="`Download ${profile.name}'s resume`"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+          </svg>
+          Resume
+        </button>
       </div>
 
       <!-- Right Actions -->
@@ -164,6 +184,15 @@ onUnmounted(() => {
         >
           {{ link.label }}
         </a>
+        <button
+          @click="handleDownloadResume"
+          class="px-4 py-2 font-body text-sm font-medium tracking-wide text-center bg-off-white dark:bg-dark-gray text-black dark:text-white border border-warm-gray dark:border-dark-gray rounded-lg w-full flex items-center justify-center gap-2 hover:bg-warm-gray dark:hover:bg-gray-800 transition-colors duration-200"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+          </svg>
+          Download Resume
+        </button>
         <button
           @click="handleSayHello"
           class="px-4 py-2 bg-black dark:bg-dark-gray font-body text-sm font-medium tracking-wide text-center text-white dark:text-white border-0 w-full cursor-pointer relative overflow-hidden group say-hello-btn"
