@@ -54,7 +54,9 @@ onMounted(() => {
       <!-- CTA Button -->
       <div class="flex justify-center pt-16 md:pt-20">
         <a
-          href="#"
+          href="https://github.com/RoelVilladiego02"
+          target="_blank"
+          rel="noopener noreferrer"
           class="group px-8 md:px-12 py-4 md:py-5 bg-white dark:bg-black text-black dark:text-white font-body font-medium tracking-wide text-sm md:text-base transition-all duration-300 hover:bg-warm-gray dark:hover:bg-dark-gray flex items-center gap-3 border border-black dark:border-white"
         >
           <span>View All Projects</span>
