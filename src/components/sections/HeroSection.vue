@@ -144,11 +144,11 @@ onUnmounted(() => {
     <div class="absolute inset-0 bg-white dark:bg-[#050505]"></div>
 
     <!-- Animated mesh gradient orbs -->
-    <div class="orb-1 absolute w-[600px] h-[600px] rounded-full pointer-events-none transition-transform duration-700 ease-out"
-      style="background: radial-gradient(circle, rgba(255,90,0,0.18) 0%, transparent 70%); top: -10%; left: -15%;">
+    <div class="orb-1 absolute rounded-full pointer-events-none transition-transform duration-700 ease-out" 
+      style="background: radial-gradient(circle, rgba(255,90,0,0.18) 0%, transparent 70%); top: -10%; left: -15%; width: clamp(300px, 80vw, 600px); height: clamp(300px, 80vw, 600px);">
     </div>
-    <div class="orb-2 absolute w-[500px] h-[500px] rounded-full pointer-events-none transition-transform duration-700 ease-out"
-      style="background: radial-gradient(circle, rgba(120,80,255,0.14) 0%, transparent 70%); bottom: -10%; right: -10%;">
+    <div class="orb-2 absolute rounded-full pointer-events-none transition-transform duration-700 ease-out"
+      style="background: radial-gradient(circle, rgba(120,80,255,0.14) 0%, transparent 70%); bottom: -10%; right: -10%; width: clamp(250px, 70vw, 500px); height: clamp(250px, 70vw, 500px);">
     </div>
 
     <!-- Grain overlay -->
@@ -256,7 +256,7 @@ onUnmounted(() => {
 
     <!-- Large decorative index number -->
     <div class="absolute bottom-0 right-0 select-none pointer-events-none overflow-hidden leading-none">
-      <span class="font-display font-black text-[22vw] text-neutral-200 dark:text-neutral-900 block" style="transform: translate(5%, 8%);">01</span>
+      <span class="font-display font-black text-neutral-200 dark:text-neutral-900 block hero-index" style="transform: translate(5%, 8%);">01</span>
     </div>
 
     <!-- Scroll indicator -->
@@ -574,6 +574,11 @@ h1.glitch::after {
   h1 { font-size: clamp(3rem, 14vw, 5rem); }
   .cursor-dot { display: none; }
   .hero-section { cursor: auto; }
+  .hero-index { font-size: clamp(12rem, 45vw, 22vw) !important; }
+}
+
+.hero-index {
+  font-size: text-[22vw];
 }
 </style>
 
