@@ -80,11 +80,11 @@ onMounted(() => {
 
       <!-- Status Badge -->
       <div
-        class="inline-flex items-center gap-2 px-4 py-2 bg-off-white border border-warm-gray rounded-full opacity-0"
+        class="inline-flex items-center gap-2 px-4 py-2 bg-off-white dark:bg-dark-gray border border-warm-gray dark:border-dark-gray rounded-full opacity-0"
         style="animation: fadeUp 0.6s ease-out 500ms forwards;"
       >
-        <div class="w-2 h-2 bg-black rounded-full animate-pulse"></div>
-        <span class="font-body text-xs font-medium tracking-wide">{{ profile.availability }}</span>
+        <div class="w-2 h-2 bg-black dark:bg-white rounded-full animate-pulse"></div>
+        <span class="font-body text-xs font-medium tracking-wide text-dark-gray dark:text-white">{{ profile.availability }}</span>
       </div>
     </div>
 

@@ -1,3 +1,10 @@
+import auditSystem from '../assets/images/projects/audit-system.webp';
+import ccsPortal from '../assets/images/projects/ccs-comprehensive-profiling-system.webp';
+import clinicalaguna from '../assets/images/projects/clinicalaguna.webp';
+import fortressChurch from '../assets/images/projects/fortress-church.webp';
+import sunriseTelco from '../assets/images/projects/sunrise-telco.webp';
+import studentInfoApp from '../assets/images/projects/itew-6-labexam.webp';
+
 export const profile = {
   name: "Roel E. Villadiego",
   title: "Full-Stack Developer",
@@ -9,9 +16,9 @@ export const profile = {
   availability: "Open for entry-level & mid-level opportunities",
   socials: {
     github: "https://github.com/RoelVilladiego02",
-    linkedin: "https://linkedin.com/in/roelvilladiego",
-    dribbble: "https://dribbble.com",
-    twitter: "https://twitter.com"
+    linkedin: "https://www.linkedin.com/in/roel-villadiego-93ab64326/",
+    facebook: "https://www.facebook.com/roel.villadiego.419924",
+    instagram: "https://www.instagram.com/pungay_roel/"
   }
 };
 
@@ -21,35 +28,53 @@ export const projects = [
     title: "Clinica Laguna - Web-Based Clinic Management System",
     description: "Full-stack clinic management system with appointment scheduling, medical records, billing (PayMongo), teleconsultation (video + chat), inventory, and analytics. Deployed on Vercel (frontend) & Railway (backend). Implements AES encryption, MFA, RBAC, and audit logging.",
     tags: ["React", "Laravel", "MySQL", "Vercel", "Railway", "PayMongo", "AES Encryption", "MFA", "RBAC"],
-    image: "/images/clinica-laguna.jpg",
-    link: "https://clinica-laguna.vercel.app",
+    image: clinicalaguna,
+    link: "https://clinicalaguna.it.com/",
     year: "2025"
   },
   {
     id: "02",
-    title: "Odoo ERP System Deployment & Migration",
-    description: "Enterprise resource planning system deployment and configuration for multiple clients. Handled module setup, bulk data migrations, payroll logic testing, and custom workflow automation.",
-    tags: ["Odoo ERP", "Data Migration", "MySQL", "Workflow Automation", "Payroll Logic"],
-    image: "/images/odoo-erp.jpg",
-    link: "https://example.com",
+    title: "Audit System",
+    description: "A comprehensive platform to assess and enhance your organization's cybersecurity posture with industry-leading tools and insights. Features include security assessment, analytics, recommendations, compliance tracking, risk identification, and team access management.",
+    tags: ["React", "Laravel", "Vercel", "Railway"],
+    image: auditSystem,
+    link: "https://audit-system-orpin.vercel.app",
     year: "2026"
   },
   {
     id: "03",
-    title: "WordPress Site Optimization & Management",
-    description: "WordPress website optimization, banner design revisions, SEO improvements, and site performance tuning for client branding and user engagement.",
-    tags: ["WordPress", "PHP", "SEO", "HTML/CSS", "Performance Tuning"],
-    image: "/images/wordpress.jpg",
-    link: "https://example.com",
+    title: "CCS Portal - Your Campus, One Login Away",
+    description: "Final project in Web Development Frameworks. A comprehensive campus portal providing access to grades, schedules & resources with real-time announcements & notifications and secure single sign-on for all roles.",
+    tags: ["React", "Laravel", "Vercel", "Railway"],
+    image: ccsPortal,
+    link: "https://ccs-comprehensive-profiling-system.vercel.app",
     year: "2026"
   },
   {
     id: "04",
-    title: "Biometrics Hardware Integration & Automation",
-    description: "Onsite installation, configuration, and troubleshooting of biometric attendance systems. Automated chatbot scripts for client support and documentation.",
-    tags: ["Hardware Integration", "Automation", "Technical Documentation", "Client Support"],
-    image: "/images/biometrics.jpg",
-    link: "https://example.com",
+    title: "Fortress Church",
+    description: "Promotional page for our church with modern design and responsive layout.",
+    tags: ["React", "Vite", "Vercel"],
+    image: fortressChurch,
+    link: "https://fortress-church.vercel.app/",
+    year: "2026"
+  },
+  {
+    id: "05",
+    title: "Sunrise Telco",
+    description: "One of my first projects in responsive web design. Built with vanilla code (plain HTML, CSS, and JavaScript) to demonstrate core web development fundamentals.",
+    tags: ["HTML", "CSS", "JavaScript", "Vercel"],
+    image: sunriseTelco,
+    link: "https://sunrise-telco.vercel.app/",
+    year: "2026"
+  },
+  {
+    id: "06",
+    title: "Student Info App",
+    description: "Lab exam project exploring student information with modern Vue patterns. Features component architecture, efficient state management with Vue composition API, client-side routing, and real-time API integration with error handling.",
+    tags: ["Vue", "Vite", "Vercel"],
+    image: studentInfoApp,
+    link: "https://itew-6-labexam.vercel.app/",
     year: "2026"
   }
 ];

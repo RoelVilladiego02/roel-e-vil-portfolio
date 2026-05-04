@@ -7,6 +7,24 @@ const isScrolled = ref(false);
 const isMobileMenuOpen = ref(false);
 const { isDark, toggle: toggleDarkMode } = useDarkMode();
 
+const wittyGreetings = [
+  "Did you know? Developers are 87% coffee, 12% code, 1% motivation 😄",
+  "I'd offer you a cookie, but I'd probably eat it myself 🍪",
+  "Let's build something legendary together! 🚀",
+  "Fair warning: I might respond with JavaScript puns 😅",
+  "Your message is about to make my day! 💌",
+  "Plot twist: You're about to email a developer who loves pizza 🍕",
+  "They say send a message... so here you are! 📬",
+  "This is where the magic happens ✨"
+];
+
+const handleSayHello = () => {
+  const randomGreeting = wittyGreetings[Math.floor(Math.random() * wittyGreetings.length)];
+  alert(randomGreeting + '\n\nNow opening your email... 📨');
+  closeMobileMenu();
+  window.location.href = `mailto:${profile.email}`;
+};
+
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 10;
 };
@@ -94,12 +112,13 @@ onUnmounted(() => {
         </button>
 
         <!-- CTA Button (Desktop) -->
-        <a
-          href="mailto:villadiegoroel92@gmail.com"
-          class="hidden md:inline-block px-6 py-2 bg-black dark:bg-dark-gray font-body text-sm font-medium tracking-wide hover:bg-dark-gray dark:hover:bg-black transition-colors duration-200 cta-btn"
+        <button
+          @click="handleSayHello"
+          class="hidden md:inline-block px-6 py-2 bg-black dark:bg-dark-gray font-body text-sm font-medium tracking-wide text-white dark:text-white cursor-pointer border-0 relative overflow-hidden group say-hello-btn"
         >
-          Say Hello
-        </a>
+          <span class="relative z-10 block transition-all duration-300 group-hover:scale-110">Say Hello</span>
+          <div class="absolute inset-0 bg-dark-gray dark:bg-black transition-all duration-300 -translate-x-full group-hover:translate-x-0"></div>
+        </button>
 
         <!-- Mobile Menu Button -->
         <button
@@ -145,13 +164,13 @@ onUnmounted(() => {
         >
           {{ link.label }}
         </a>
-        <a
-          href="mailto:villadiegoroel92@gmail.com"
-          @click="closeMobileMenu"
-          class="px-4 py-2 bg-black dark:bg-dark-gray font-body text-sm font-medium tracking-wide text-center hover:bg-dark-gray dark:hover:bg-black transition-colors duration-200 cta-btn"
+        <button
+          @click="handleSayHello"
+          class="px-4 py-2 bg-black dark:bg-dark-gray font-body text-sm font-medium tracking-wide text-center text-white dark:text-white border-0 w-full cursor-pointer relative overflow-hidden group say-hello-btn"
         >
-          Say Hello
-        </a>
+          <span class="relative z-10 block transition-all duration-300 group-hover:scale-110">Say Hello</span>
+          <div class="absolute inset-0 bg-dark-gray dark:bg-black transition-all duration-300 -translate-x-full group-hover:translate-x-0"></div>
+        </button>
       </div>
     </div>
   </nav>
@@ -171,5 +190,36 @@ a.cta-btn {
 a:focus-visible {
   outline: 2px solid #0a0a0a;
   outline-offset: 2px;
+}
+
+/* Say Hello Button Animations */
+.say-hello-btn {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(0, 0, 0, 0);
+  }
+}
+
+.dark .say-hello-btn {
+  animation: pulse-dark 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-dark {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(255, 255, 255, 0);
+  }
+}
+
+.say-hello-btn:hover {
+  animation: none;
 }
 </style>
