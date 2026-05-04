@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue';
 import { skills } from '../../data/portfolio.js';
 import { useScrollAnimation } from '../../composables/useScrollAnimation.js';
+import SkillTag from '../ui/SkillTag.vue';
 
 const skillsSection = ref(null);
 const { observe } = useScrollAnimation();
@@ -84,13 +85,12 @@ onMounted(() => {
 
           <!-- Skills List -->
           <div class="flex flex-wrap gap-2">
-            <span
+            <SkillTag
               v-for="(skill, skillIndex) in category.skills"
               :key="skillIndex"
-              class="inline-block px-3 py-1.5 bg-off-white dark:bg-dark-gray border border-warm-gray dark:border-dark-gray text-xs md:text-sm font-body font-medium text-dark-gray dark:text-white/80 rounded transition-all duration-200 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black hover:border-black dark:hover:border-white"
-            >
-              {{ skill }}
-            </span>
+              :label="skill"
+              variant="default"
+            />
           </div>
         </div>
       </div>
@@ -101,13 +101,12 @@ onMounted(() => {
         <div class="space-y-4 animate-fadeUp">
           <h3 class="font-display font-bold text-xl md:text-2xl dark:text-white transition-colors duration-300">Languages</h3>
           <div class="flex flex-wrap gap-2">
-            <span
+            <SkillTag
               v-for="(lang, index) in skills.languages"
               :key="index"
-              class="inline-block px-4 py-2 bg-off-white dark:bg-dark-gray border border-warm-gray dark:border-dark-gray text-sm font-body font-medium text-dark-gray dark:text-white/80 rounded-full transition-all duration-200 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black hover:border-black dark:hover:border-white"
-            >
-              {{ lang }}
-            </span>
+              :label="lang"
+              variant="default"
+            />
           </div>
         </div>
 
@@ -115,13 +114,12 @@ onMounted(() => {
         <div class="space-y-4 animate-fadeUp" style="animation-delay: 80ms;">
           <h3 class="font-display font-bold text-xl md:text-2xl dark:text-white transition-colors duration-300">Frameworks</h3>
           <div class="flex flex-wrap gap-2">
-            <span
+            <SkillTag
               v-for="(fw, index) in skills.frameworks"
               :key="index"
-              class="inline-block px-4 py-2 bg-off-white dark:bg-dark-gray border border-warm-gray dark:border-dark-gray text-sm font-body font-medium text-dark-gray dark:text-white/80 rounded-full transition-all duration-200 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black hover:border-black dark:hover:border-white"
-            >
-              {{ fw }}
-            </span>
+              :label="fw"
+              variant="default"
+            />
           </div>
         </div>
 
@@ -129,13 +127,12 @@ onMounted(() => {
         <div class="space-y-4 animate-fadeUp" style="animation-delay: 160ms;">
           <h3 class="font-display font-bold text-xl md:text-2xl dark:text-white transition-colors duration-300">Design</h3>
           <div class="flex flex-wrap gap-2">
-            <span
+            <SkillTag
               v-for="(design, index) in skills.design"
               :key="index"
-              class="inline-block px-4 py-2 bg-off-white dark:bg-dark-gray border border-warm-gray dark:border-dark-gray text-sm font-body font-medium text-dark-gray dark:text-white/80 rounded-full transition-all duration-200 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black hover:border-black dark:hover:border-white"
-            >
-              {{ design }}
-            </span>
+              :label="design"
+              variant="default"
+            />
           </div>
         </div>
 
@@ -143,13 +140,12 @@ onMounted(() => {
         <div class="space-y-4 animate-fadeUp" style="animation-delay: 240ms;">
           <h3 class="font-display font-bold text-xl md:text-2xl dark:text-white transition-colors duration-300">Tools & Platform</h3>
           <div class="flex flex-wrap gap-2">
-            <span
+            <SkillTag
               v-for="(tool, index) in skills.tools"
               :key="index"
-              class="inline-block px-4 py-2 bg-off-white dark:bg-dark-gray border border-warm-gray dark:border-dark-gray text-sm font-body font-medium text-dark-gray dark:text-white/80 rounded-full transition-all duration-200 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black hover:border-black dark:hover:border-white"
-            >
-              {{ tool }}
-            </span>
+              :label="tool"
+              variant="default"
+            />
           </div>
         </div>
       </div>
