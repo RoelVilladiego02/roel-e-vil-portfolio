@@ -27,7 +27,7 @@ const handleSayHello = () => {
 
 const handleDownloadResume = () => {
   const link = document.createElement('a');
-  link.href = '/Roel_Villadiego_Resume.pdf';
+  link.href = '/REV_Resume.pdf';
   link.download = 'Roel_Villadiego_Resume.pdf';
   document.body.appendChild(link);
   link.click();

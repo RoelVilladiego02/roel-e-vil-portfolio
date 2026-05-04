@@ -2,9 +2,11 @@
 import { ref, onMounted } from 'vue';
 import { profile } from '../../data/portfolio.js';
 import { useScrollAnimation } from '../../composables/useScrollAnimation.js';
+import { useDarkMode } from '../../composables/useDarkMode.js';
 
 const contactSection = ref(null);
 const { observe } = useScrollAnimation();
+const { isDark } = useDarkMode();
 
 onMounted(() => {
   if (contactSection.value) {
@@ -40,7 +42,8 @@ const socialLinks = [
   <section
     id="contact"
     ref="contactSection"
-    class="relative bg-black text-white py-section-pad px-6 md:px-8 overflow-hidden"
+    class="relative bg-white text-black dark:bg-black dark:text-white py-section-pad px-6 md:px-8 overflow-hidden transition-colors duration-300"
+    :class="{ 'dark': isDark }"
   >
     <!-- Grain overlay -->
     <div
@@ -55,7 +58,7 @@ const socialLinks = [
       <h2 class="font-display font-black text-hero leading-tight mb-8 md:mb-12">
         Let's build something amazing.
       </h2>
-
+black/70 dark:text-
       <p class="font-body text-lg md:text-xl text-white/80 mb-12 md:mb-16 max-w-2xl mx-auto leading-relaxed">
         I'm always interested in hearing about new projects and opportunities. Whether you have a question or just want to say hi, feel free to reach out!
       </p>
@@ -74,7 +77,7 @@ const socialLinks = [
       </div>
 
       <!-- Divider -->
-      <div class="h-0.5 bg-white/20 mb-12 md:mb-16"></div>
+      <div class="h-0.5 bg-black/20 dark:bg-white/20 mb-12 md:mb-16"></div>
 
       <!-- Social Links -->
       <div class="flex flex-wrap justify-center gap-6 md:gap-8 mb-12">
@@ -85,7 +88,7 @@ const socialLinks = [
           :aria-label="social.label"
           target="_blank"
           rel="noopener noreferrer"
-          class="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border border-white/40 rounded-lg hover:bg-white hover:text-black transition-all duration-300 hover:border-white"
+          class="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border border-black/40 dark:border-white/40 rounded-lg hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300"
         >
           <!-- Icons -->
           <svg
@@ -124,24 +127,24 @@ const socialLinks = [
       </div>
 
       <!-- Divider -->
-      <div class="h-0.5 bg-white/20 mb-12"></div>
+      <div class="h-0.5 bg-black/20 dark:bg-white/20 mb-12"></div>
 
       <!-- CTA for collaboration -->
-      <p class="font-body text-sm md:text-base text-white/70 tracking-wide">
-        Open for <span class="font-bold text-white">freelance projects</span> and <span class="font-bold text-white">full-time opportunities</span>
+      <p class="font-body text-sm md:text-base text-black/70 dark:text-white/70 tracking-wide">
+        Open for <span class="font-bold text-black dark:text-white">freelance projects</span> and <span class="font-bold text-black dark:text-white">full-time opportunities</span>
       </p>
     </div>
 
     <!-- Decorative elements -->
     <div
-      class="absolute bottom-10 right-10 text-9xl md:text-[12rem] font-display font-black text-white opacity-5 pointer-events-none leading-none"
+      class="absolute bottom-10 right-10 text-9xl md:text-[12rem] font-display font-black text-black dark:text-white opacity-5 pointer-events-none leading-none"
     >
       05
     </div>
 
     <!-- Animated accent line -->
     <div
-      class="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-transparent via-white to-transparent"
+      class="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-transparent via-black dark:via-white to-transparent"
       style="width: 100%; opacity: 0.3;"
     ></div>
   </section>
