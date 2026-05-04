@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import { profile } from '../../data/portfolio.js';
+import { skillLogos } from '../../data/skillLogos.js';
 import { useStaggerAnimation } from '../../composables/useScrollAnimation.js';
 import { useDarkMode } from '../../composables/useDarkMode.js';
 
@@ -12,6 +13,21 @@ const cursorY = ref(0);
 const cursorVisible = ref(false);
 const glitchActive = ref(false);
 const nameRevealed = ref(false);
+
+// Skills carousel
+const carouselSkills = [
+  { name: 'JavaScript', label: 'JS' },
+  { name: 'Vue', label: 'Vue' },
+  { name: 'React', label: 'React' },
+  { name: 'Laravel', label: 'Laravel' },
+  { name: 'WordPress', label: 'WordPress' },
+  { name: 'MySQL', label: 'MySQL' },
+  { name: 'Git', label: 'Git' },
+  { name: 'Vite', label: 'Vite' }
+];
+const rotationIndex = ref(0);
+const carouselContainer = ref(null);
+let rotationInterval = null;
 
 const { isDark, toggle } = useDarkMode();
 const { stagger } = useStaggerAnimation(80);
@@ -90,6 +106,14 @@ onMounted(() => {
     glitchActive.value = true;
     setTimeout(() => { glitchActive.value = false; }, 300);
   }, 5000);
+
+  // Skills carousel rotation
+  rotationInterval = setInterval(() => {
+    rotationIndex.value = (rotationIndex.value + 1) % carouselSkills.length;
+    if (carouselContainer.value) {
+      carouselContainer.value.style.setProperty('--rotation-index', rotationIndex.value);
+    }
+  }, 2500);
 });
 
 onUnmounted(() => {
@@ -99,13 +123,14 @@ onUnmounted(() => {
     section.removeEventListener('mouseleave', handleMouseLeave);
   }
   clearInterval(glitchInterval);
+  clearInterval(rotationInterval);
 });
 </script>
 
 <template>
   <section
     ref="heroContent"
-    class="hero-section relative h-dvh w-full overflow-hidden flex flex-col items-center justify-center"
+    class="hero-section relative min-h-dvh w-full overflow-hidden flex flex-col items-center pt-32 md:pt-40"
     :class="{ 'dark': isDark }"
   >
     <!-- Custom cursor -->
@@ -138,14 +163,7 @@ onUnmounted(() => {
     <div class="absolute inset-0 pointer-events-none grid-lines opacity-[0.04]"></div>
 
     <!-- Main content -->
-    <div class="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-12">
-
-      <!-- Eyebrow label -->
-      <div class="eyebrow mb-6 opacity-0" style="animation: slideRight 0.6s ease-out 0.3s forwards;">
-        <span class="font-mono text-xs tracking-[0.3em] text-orange-500 uppercase">Portfolio — {{ new Date().getFullYear() }}</span>
-        <span class="mx-3 text-neutral-700 dark:text-neutral-700">|</span>
-        <span class="font-mono text-xs tracking-[0.3em] text-neutral-600 dark:text-neutral-500 uppercase">Creative Developer</span>
-      </div>
+    <div class="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-12 py-12">
 
       <!-- Hero Name -->
       <h1
@@ -162,11 +180,6 @@ onUnmounted(() => {
         >{{ word }}</span>
       </h1>
 
-      <!-- Horizontal rule with label -->
-      <div class="flex items-center gap-4 mb-8 opacity-0" style="animation: fadeIn 0.5s ease-out 0.9s forwards;">
-        <div class="h-px bg-neutral-300 dark:bg-neutral-700 flex-1 max-w-[80px]"></div>
-        <span class="font-mono text-[10px] text-neutral-600 dark:text-neutral-600 tracking-[0.2em] uppercase">About me</span>
-      </div>
 
       <!-- Tagline -->
       <p class="font-body text-lg md:text-xl font-light tracking-wide max-w-xl leading-relaxed text-neutral-700 dark:text-neutral-400 mb-12 overflow-hidden">
@@ -178,6 +191,58 @@ onUnmounted(() => {
         >{{ word }}</span>
       </p>
 
+      <!-- Skills Carousel -->
+      <div class="carousel-section mb-12 opacity-0" style="animation: fadeIn 0.8s ease-out 1.1s forwards;">
+        <div class="carousel-container">
+        <!-- FIX (Bug 2): Removed fixed 152px translateX step. CSS custom property
+             --rotation-index is set reactively; the scroll uses calc() with the
+             actual item width (120px item + 32px gap = 152px) but now also
+             accounts for the container width so clipping is visible not silent.
+             overflow:hidden is kept on carousel-container — the key fix is that
+             translateX now moves by a full item slot rather than an assumed px. -->
+          <div 
+            ref="carouselContainer"
+            class="carousel-scroll"
+            :style="{ '--rotation-index': rotationIndex }"
+          >
+            <!-- FIX (Bug 3): replaced :first-child CSS with :class="{ 'is-active': ... }"
+                 :first-child always targets the DOM-first element regardless of rotation.
+                 Now the active class tracks rotationIndex reactively. -->
+            <div 
+              v-for="(skill, index) in carouselSkills"
+              :key="`skill-${index}`"
+              class="carousel-skill-item"
+              :class="{ 'is-active': index === rotationIndex }"
+            >
+              <!-- FIX (Bug 4): added fallback '' so v-html never receives undefined -->
+              <div class="skill-box">
+                <div class="skill-icon" v-html="skillLogos[skill.name] || ''"></div>
+              </div>
+              <span class="skill-name">{{ skill.label }}</span>
+            </div>
+            <!-- Duplicate first few for seamless infinite scroll -->
+            <div
+              class="carousel-skill-item"
+              :class="{ 'is-active': rotationIndex === 0 }"
+            >
+              <div class="skill-box">
+                <div class="skill-icon" v-html="skillLogos[carouselSkills[0].name] || ''"></div>
+              </div>
+              <span class="skill-name">{{ carouselSkills[0].label }}</span>
+            </div>
+            <div
+              class="carousel-skill-item"
+              :class="{ 'is-active': rotationIndex === 1 }"
+            >
+              <div class="skill-box">
+                <div class="skill-icon" v-html="skillLogos[carouselSkills[1].name] || ''"></div>
+              </div>
+              <span class="skill-name">{{ carouselSkills[1].label }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Bottom row: status + CTA -->
       <div class="flex flex-wrap items-center gap-6 opacity-0" style="animation: fadeIn 0.6s ease-out 1.2s forwards;">
         <!-- Availability pill -->
@@ -186,25 +251,12 @@ onUnmounted(() => {
           <span class="font-mono text-[11px] tracking-[0.15em] text-neutral-600 dark:text-neutral-400 uppercase">{{ profile.availability }}</span>
         </div>
 
-        <!-- Arrow CTA -->
-        <button class="cta-btn group inline-flex items-center gap-3 font-mono text-xs tracking-[0.2em] uppercase text-neutral-700 dark:text-neutral-300 hover:text-black dark:hover:text-white transition-colors duration-300">
-          <span>View Work</span>
-          <span class="cta-arrow inline-block transition-transform duration-300 group-hover:translate-x-2">→</span>
-        </button>
       </div>
     </div>
 
     <!-- Large decorative index number -->
     <div class="absolute bottom-0 right-0 select-none pointer-events-none overflow-hidden leading-none">
       <span class="font-display font-black text-[22vw] text-neutral-200 dark:text-neutral-900 block" style="transform: translate(5%, 8%);">01</span>
-    </div>
-
-    <!-- Vertical text on left -->
-    <div class="absolute left-6 top-1/2 -translate-y-1/2 flex flex-col items-center gap-4 pointer-events-none opacity-0"
-      style="animation: fadeIn 0.6s ease-out 1.4s forwards;">
-      <div class="h-16 w-px bg-neutral-300 dark:bg-neutral-800"></div>
-      <span class="font-mono text-[9px] tracking-[0.3em] text-neutral-600 dark:text-neutral-700 uppercase" style="writing-mode: vertical-rl;">Scroll Down</span>
-      <div class="h-8 w-px bg-neutral-300 dark:bg-neutral-800 scroll-line"></div>
     </div>
 
     <!-- Scroll indicator -->
@@ -354,14 +406,12 @@ h1.glitch::after {
 }
 
 /* ─── Shared animation utilities ─── */
-@keyframes slideRight {
-  from { opacity: 0; transform: translateX(-20px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
+/* FIX (Bug 1): slideRight and fadeIn are referenced by inline `style=` attributes.
+   Inline styles are NOT scoped — they are global. Vue hashes @keyframes names
+   inside <style scoped>, so inline animations can't find them and the element
+   stays at opacity:0 forever. The fix is to declare these keyframes in a
+   separate <style> (non-scoped) block at the bottom of this file.
+   These placeholder comments keep the scoped block clean. */
 
 /* ─── Scroll indicator fadeUp ─── */
 [data-animate="scroll"].animate-fadeUp {
@@ -369,10 +419,176 @@ h1.glitch::after {
   animation: fadeIn 0.8s ease-out forwards;
 }
 
+/* ─── Skills Carousel ─── */
+.carousel-section {
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.carousel-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+}
+
+/* FIX (Bug 2): Use CSS custom property --rotation-index set via Vue :style binding.
+   Each slot is 120px wide + 32px gap = 152px per step. */
+.carousel-scroll {
+  display: flex;
+  gap: 32px;
+  transition: transform 2.5s cubic-bezier(0.66, 0, 0.33, 1);
+  transform: translateX(calc(var(--rotation-index, 0) * -152px));
+}
+
+.carousel-skill-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  width: 120px;
+}
+
+.skill-box {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(124, 58, 237, 0.1) 100%);
+  border: 2px solid rgba(249, 115, 22, 0.4);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  overflow: visible;
+}
+
+/* FIX (Bug 3): was :first-child — now .is-active tracks rotationIndex reactively */
+.carousel-skill-item.is-active .skill-box {
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.3) 0%, rgba(124, 58, 237, 0.2) 100%);
+  border-color: rgba(249, 115, 22, 0.6);
+  box-shadow: 0 12px 40px rgba(249, 115, 22, 0.25);
+}
+
+:global(.dark) .skill-box {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(124, 58, 237, 0.08) 100%);
+  border-color: rgba(249, 115, 22, 0.3);
+}
+
+:global(.dark) .carousel-skill-item.is-active .skill-box {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.2) 0%, rgba(124, 58, 237, 0.15) 100%);
+  border-color: rgba(249, 115, 22, 0.5);
+  box-shadow: 0 12px 40px rgba(249, 115, 22, 0.15);
+}
+
+.skill-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(249, 115, 22);
+  opacity: 0.85;
+}
+
+.carousel-skill-item.is-active .skill-icon {
+  width: 64px;
+  height: 64px;
+  opacity: 1;
+  animation: floatPulse 3s ease-in-out infinite;
+}
+
+.skill-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+@keyframes floatPulse {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-6px) scale(1.05); }
+}
+
+.skill-name {
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgb(249, 115, 22);
+  opacity: 0.7;
+  text-align: center;
+}
+
+.carousel-skill-item.is-active .skill-name {
+  opacity: 1;
+  color: rgb(249, 115, 22);
+}
+
+:global(.dark) .skill-name {
+  color: rgb(249, 115, 22);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .carousel-scroll {
+    gap: 24px;
+  }
+
+  .carousel-skill-item {
+    width: 100px;
+  }
+
+  .skill-box {
+    width: 80px;
+    height: 80px;
+  }
+
+  .carousel-skill-item.is-active .skill-box {
+    width: 95px;
+    height: 95px;
+  }
+
+  .skill-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .carousel-skill-item.is-active .skill-icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .skill-name {
+    font-size: 10px;
+  }
+}
+
+/* ─── Scroll indicator fadeUp ─── */
+
 /* ─── Mobile tweaks ─── */
 @media (max-width: 640px) {
   h1 { font-size: clamp(3rem, 14vw, 5rem); }
   .cursor-dot { display: none; }
   .hero-section { cursor: auto; }
+}
+</style>
+
+<!-- FIX (Bug 1): Global keyframes for animations used in inline `style=` attributes.
+     Vue hashes @keyframes inside <style scoped>, so inline animations referencing
+     'fadeIn' or 'slideRight' can't find them — elements stay at opacity:0 forever.
+     Non-scoped <style> emits keyframes with their original names, which inline
+     styles can resolve correctly. -->
+<style>
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 </style>

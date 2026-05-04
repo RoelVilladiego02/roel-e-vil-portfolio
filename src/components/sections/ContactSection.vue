@@ -55,32 +55,31 @@ const socialLinks = [
 
     <div class="relative z-10 max-w-5xl mx-auto text-center">
       <!-- Main CTA -->
-      <h2 class="font-display font-black text-hero leading-tight mb-8 md:mb-12">
+      <h2 class="font-display font-black text-3xl sm:text-5xl md:text-6xl lg:text-hero leading-tight mb-6 sm:mb-8 md:mb-12">
         Let's build something amazing.
       </h2>
-black/70 dark:text-
-      <p class="font-body text-lg md:text-xl text-white/80 mb-12 md:mb-16 max-w-2xl mx-auto leading-relaxed">
+      <p class="font-body text-base sm:text-lg md:text-xl text-white/80 mb-10 sm:mb-12 md:mb-16 max-w-2xl mx-auto leading-relaxed px-2">
         I'm always interested in hearing about new projects and opportunities. Whether you have a question or just want to say hi, feel free to reach out!
       </p>
 
       <!-- Email CTA -->
-      <div class="mb-16 md:mb-20">
+      <div class="mb-12 sm:mb-16 md:mb-20 px-2">
         <a
           :href="`mailto:${profile.email}`"
-          class="inline-block group"
+          class="inline-block group w-full sm:w-auto max-w-full"
         >
-          <span class="font-display font-black text-4xl md:text-6xl hover:opacity-70 transition-opacity duration-300">
+          <span class="font-display font-black text-lg sm:text-2xl md:text-4xl lg:text-6xl hover:opacity-70 transition-opacity duration-300 break-words block">
             {{ profile.email }}
           </span>
-          <div class="h-1 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left mt-3"></div>
+          <div class="h-1 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left mt-2 sm:mt-3"></div>
         </a>
       </div>
 
       <!-- Divider -->
-      <div class="h-0.5 bg-black/20 dark:bg-white/20 mb-12 md:mb-16"></div>
+      <div class="h-0.5 bg-black/20 dark:bg-white/20 mb-8 sm:mb-10 md:mb-16"></div>
 
       <!-- Social Links -->
-      <div class="flex flex-wrap justify-center gap-6 md:gap-8 mb-12">
+      <div class="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 mb-10 sm:mb-12">
         <a
           v-for="social in socialLinks"
           :key="social.label"
@@ -88,7 +87,7 @@ black/70 dark:text-
           :aria-label="social.label"
           target="_blank"
           rel="noopener noreferrer"
-          class="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border border-black/40 dark:border-white/40 rounded-lg hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300"
+          class="w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center border border-black/40 dark:border-white/40 rounded-lg hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 flex-shrink-0"
         >
           <!-- Icons -->
           <svg
@@ -127,10 +126,10 @@ black/70 dark:text-
       </div>
 
       <!-- Divider -->
-      <div class="h-0.5 bg-black/20 dark:bg-white/20 mb-12"></div>
+      <div class="h-0.5 bg-black/20 dark:bg-white/20 mb-8 sm:mb-10"></div>
 
       <!-- CTA for collaboration -->
-      <p class="font-body text-sm md:text-base text-black/70 dark:text-white/70 tracking-wide">
+      <p class="font-body text-xs sm:text-sm md:text-base text-black/70 dark:text-white/70 tracking-wide px-2">
         Open for <span class="font-bold text-black dark:text-white">freelance projects</span> and <span class="font-bold text-black dark:text-white">full-time opportunities</span>
       </p>
     </div>
