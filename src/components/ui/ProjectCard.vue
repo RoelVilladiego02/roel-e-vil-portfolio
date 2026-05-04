@@ -38,7 +38,7 @@ import { ref } from 'vue';
     rel="noopener noreferrer"
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
-    class="group block relative overflow-hidden bg-off-white border border-warm-gray transition-all duration-300 hover:shadow-lg hover:border-black"
+    class="group block relative overflow-hidden bg-off-white dark:bg-dark-gray border border-warm-gray dark:border-dark-gray transition-all duration-300 hover:shadow-lg hover:border-black dark:hover:border-white"
   >
     <!-- Card Container -->
     <div class="relative aspect-video md:aspect-[16/9] overflow-hidden bg-warm-gray">

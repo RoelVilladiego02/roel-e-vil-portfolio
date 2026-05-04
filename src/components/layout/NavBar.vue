@@ -1,9 +1,11 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import { profile } from '../../data/portfolio.js';
+import { useDarkMode } from '../../composables/useDarkMode.js';
 
 const isScrolled = ref(false);
 const isMobileMenuOpen = ref(false);
+const { isDark, toggle: toggleDarkMode } = useDarkMode();
 
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 10;
@@ -38,17 +40,17 @@ onUnmounted(() => {
     :class="[
       'fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out',
       isScrolled
-        ? 'backdrop-blur-xs bg-white/80 border-b border-warm-gray'
-        : 'bg-white'
+        ? 'backdrop-blur-xs bg-white/80 dark:bg-black/80 border-b border-warm-gray dark:border-dark-gray'
+        : 'bg-white dark:bg-black'
     ]"
   >
     <div class="max-w-7xl mx-auto px-6 md:px-8 py-4 md:py-5 flex items-center justify-between">
       <!-- Logo / Name -->
       <a href="#" class="flex items-center gap-2 hover:opacity-70 transition-opacity duration-200">
-        <div class="w-8 h-8 bg-black flex items-center justify-center">
-          <span class="text-white font-display font-bold text-sm">R</span>
+        <div class="w-8 h-8 bg-black dark:bg-white flex items-center justify-center">
+          <span class="text-white dark:text-black font-display font-bold text-sm">R</span>
         </div>
-        <span class="hidden sm:inline font-display font-bold tracking-tight">{{ profile.name.split(' ')[0] }}</span>
+        <span class="hidden sm:inline font-display font-bold tracking-tight dark:text-white">{{ profile.name.split(' ')[0] }}</span>
       </a>
 
       <!-- Desktop Navigation -->
@@ -57,53 +59,81 @@ onUnmounted(() => {
           v-for="link in navLinks"
           :key="link.label"
           :href="link.href"
-          class="font-body text-sm font-medium tracking-wide hover:text-black transition-colors duration-200"
-          :style="{ color: isScrolled ? '#0a0a0a' : '#0a0a0a' }"
+          class="font-body text-sm font-medium tracking-wide hover:text-black dark:hover:text-white transition-colors duration-200 dark:text-white/80"
         >
           {{ link.label }}
         </a>
       </div>
 
-      <!-- CTA Button (Desktop) -->
-      <a
-        href="mailto:hello@roelvilladiego.com"
-        class="hidden md:inline-block px-6 py-2 bg-black text-white font-body text-sm font-medium tracking-wide hover:bg-dark-gray transition-colors duration-200"
-      >
-        Say Hello
-      </a>
+      <!-- Right Actions -->
+      <div class="flex items-center gap-4 md:gap-6">
+        <!-- Dark Mode Toggle -->
+        <button
+          @click="toggleDarkMode"
+          :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+          class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-200 bg-off-white dark:bg-dark-gray hover:bg-warm-gray dark:hover:bg-dark-gray border border-warm-gray dark:border-dark-gray"
+        >
+          <!-- Sun icon for light mode -->
+          <svg
+            v-if="!isDark"
+            class="w-5 h-5 text-black"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m16.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M20 12a8 8 0 11-16 0 8 8 0 0116 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+          <!-- Moon icon for dark mode -->
+          <svg
+            v-else
+            class="w-5 h-5 text-white"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
 
-      <!-- Mobile Menu Button -->
-      <button
-        @click="toggleMobileMenu"
-        class="md:hidden w-8 h-8 flex flex-col items-center justify-center gap-1.5 hover:opacity-70 transition-opacity duration-200"
-        :aria-label="isMobileMenuOpen ? 'Close menu' : 'Open menu'"
-        :aria-expanded="isMobileMenuOpen"
-      >
-        <span
-          :class="[
-            'block w-6 h-0.5 bg-black transition-all duration-300',
-            isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''
-          ]"
-        ></span>
-        <span
-          :class="[
-            'block w-6 h-0.5 bg-black transition-all duration-300',
-            isMobileMenuOpen ? 'opacity-0' : ''
-          ]"
-        ></span>
-        <span
-          :class="[
-            'block w-6 h-0.5 bg-black transition-all duration-300',
-            isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
-          ]"
-        ></span>
-      </button>
+        <!-- CTA Button (Desktop) -->
+        <a
+          href="mailto:villadiegoroel92@gmail.com"
+          class="hidden md:inline-block px-6 py-2 bg-black dark:bg-dark-gray font-body text-sm font-medium tracking-wide hover:bg-dark-gray dark:hover:bg-black transition-colors duration-200 cta-btn"
+        >
+          Say Hello
+        </a>
+
+        <!-- Mobile Menu Button -->
+        <button
+          @click="toggleMobileMenu"
+          class="md:hidden w-8 h-8 flex flex-col items-center justify-center gap-1.5 hover:opacity-70 transition-opacity duration-200"
+          :aria-label="isMobileMenuOpen ? 'Close menu' : 'Open menu'"
+          :aria-expanded="isMobileMenuOpen"
+        >
+          <span
+            :class="[
+              'block w-6 h-0.5 bg-black dark:bg-white transition-all duration-300',
+              isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''
+            ]"
+          ></span>
+          <span
+            :class="[
+              'block w-6 h-0.5 bg-black dark:bg-white transition-all duration-300',
+              isMobileMenuOpen ? 'opacity-0' : ''
+            ]"
+          ></span>
+          <span
+            :class="[
+              'block w-6 h-0.5 bg-black dark:bg-white transition-all duration-300',
+              isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
+            ]"
+          ></span>
+        </button>
+      </div>
     </div>
 
     <!-- Mobile Menu -->
     <div
       v-if="isMobileMenuOpen"
-      class="md:hidden border-t border-warm-gray bg-white animate-fadeUp"
+      class="md:hidden border-t border-warm-gray dark:border-dark-gray bg-white dark:bg-black animate-fadeUp"
     >
       <div class="px-6 py-4 flex flex-col gap-4">
         <a
@@ -111,14 +141,14 @@ onUnmounted(() => {
           :key="link.label"
           :href="link.href"
           @click="closeMobileMenu"
-          class="font-body text-sm font-medium tracking-wide hover:text-dark-gray transition-colors duration-200"
+          class="font-body text-sm font-medium tracking-wide hover:text-dark-gray dark:hover:text-white/80 transition-colors duration-200 dark:text-white/80"
         >
           {{ link.label }}
         </a>
         <a
-          href="mailto:hello@roelvilladiego.com"
+          href="mailto:villadiegoroel92@gmail.com"
           @click="closeMobileMenu"
-          class="px-4 py-2 bg-black text-white font-body text-sm font-medium tracking-wide text-center hover:bg-dark-gray transition-colors duration-200"
+          class="px-4 py-2 bg-black dark:bg-dark-gray font-body text-sm font-medium tracking-wide text-center hover:bg-dark-gray dark:hover:bg-black transition-colors duration-200 cta-btn"
         >
           Say Hello
         </a>
@@ -131,6 +161,11 @@ onUnmounted(() => {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+/* Override color: inherit so the CTA button always shows white text on dark bg */
+a.cta-btn {
+  color: #f5f5f5 !important;
 }
 
 a:focus-visible {

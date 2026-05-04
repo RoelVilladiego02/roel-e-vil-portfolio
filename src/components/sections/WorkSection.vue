@@ -18,16 +18,16 @@ onMounted(() => {
   <section
     id="work"
     ref="workSection"
-    class="relative bg-off-white py-section-pad px-6 md:px-8"
+    class="relative bg-off-white dark:bg-black py-section-pad px-6 md:px-8 transition-colors duration-300"
   >
     <div class="max-w-7xl mx-auto">
       <!-- Section Header -->
       <div class="mb-16 md:mb-20">
         <div class="flex items-center gap-4 mb-6">
-          <div class="w-12 h-0.5 bg-black"></div>
-          <span class="font-mono text-xs font-bold tracking-widest">SELECTED WORK</span>
+          <div class="w-12 h-0.5 bg-black dark:bg-white"></div>
+          <span class="font-mono text-xs font-bold tracking-widest dark:text-white/80">SELECTED WORK</span>
         </div>
-        <h2 class="font-display font-black text-section leading-tight">
+        <h2 class="font-display font-black text-section leading-tight dark:text-white">
           Projects & Case Studies
         </h2>
       </div>

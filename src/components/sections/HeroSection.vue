@@ -41,7 +41,7 @@ onMounted(() => {
 <template>
   <section
     ref="heroContent"
-    class="relative h-dvh w-full bg-white overflow-hidden flex flex-col items-center justify-center pt-20"
+    class="relative h-dvh w-full bg-white dark:bg-black overflow-hidden flex flex-col items-center justify-center pt-20 transition-colors duration-300"
   >
     <!-- Subtle grain texture overlay -->
     <div
