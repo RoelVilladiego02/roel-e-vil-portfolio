@@ -17,13 +17,13 @@ const nameRevealed = ref(false);
 // Skills carousel
 const carouselSkills = [
   { name: 'JavaScript', label: 'JS' },
-  { name: 'Vue', label: 'Vue' },
-  { name: 'React', label: 'React' },
-  { name: 'Laravel', label: 'Laravel' },
-  { name: 'WordPress', label: 'WordPress' },
-  { name: 'MySQL', label: 'MySQL' },
-  { name: 'Git', label: 'Git' },
-  { name: 'Vite', label: 'Vite' }
+  { name: 'Vue',        label: 'Vue' },
+  { name: 'React',      label: 'React' },
+  { name: 'Laravel',    label: 'Laravel' },
+  { name: 'WordPress',  label: 'WordPress' },
+  { name: 'MySQL',      label: 'MySQL' },
+  { name: 'Git',        label: 'Git' },
+  { name: 'Vite',       label: 'Vite' }
 ];
 const rotationIndex = ref(0);
 const carouselContainer = ref(null);
@@ -32,19 +32,38 @@ let rotationInterval = null;
 const { isDark, toggle } = useDarkMode();
 const { stagger } = useStaggerAnimation(80);
 
+/**
+ * Returns { type: 'svg' | 'url' | 'none', value: string }
+ *
+ * Now that skillLogos.js uses ?raw imports, every bundled logo is an SVG
+ * string starting with '<'. The URL branch remains as a safe fallback.
+ */
+const getLogoInfo = (skillName) => {
+  const logo = skillLogos[skillName];
+  if (!logo) return { type: 'none', value: '' };
+
+  // Raw SVG string (the common case after switching to ?raw imports)
+  if (logo.trimStart().startsWith('<')) {
+    return { type: 'svg', value: logo };
+  }
+
+  // URL / path fallback
+  if (logo.startsWith('/') || logo.startsWith('http') || logo.startsWith('data:')) {
+    return { type: 'url', value: logo };
+  }
+
+  return { type: 'none', value: '' };
+};
+
 // Compute styles for name words based on dark mode
 const getNameWordStyle = (index) => {
   if (index % 2 === 1) {
-    // Stroke style
     return {
       color: 'transparent',
-      WebkitTextStroke: isDark.value ? '1px rgba(255, 255, 255, 0.75)' : '1px rgba(0, 0, 0, 0.6)'
+      WebkitTextStroke: isDark.value ? '1px rgba(255,255,255,0.75)' : '1px rgba(0,0,0,0.6)'
     };
   }
-  // Fill style
-  return {
-    color: isDark.value ? '#ffffff' : '#000000'
-  };
+  return { color: isDark.value ? '#ffffff' : '#000000' };
 };
 
 // Magnetic cursor tracking
@@ -53,29 +72,27 @@ const handleMouseMove = (e) => {
   cursorY.value = e.clientY;
   cursorVisible.value = true;
 
-  // Parallax effect on background orbs
   const section = heroContent.value;
   if (!section) return;
-  const rect = section.getBoundingClientRect();
-  const xRatio = (e.clientX - rect.left) / rect.width - 0.5;
-  const yRatio = (e.clientY - rect.top) / rect.height - 0.5;
+  const rect   = section.getBoundingClientRect();
+  const xRatio = (e.clientX - rect.left) / rect.width  - 0.5;
+  const yRatio = (e.clientY - rect.top)  / rect.height - 0.5;
 
   const orb1 = section.querySelector('.orb-1');
   const orb2 = section.querySelector('.orb-2');
-  if (orb1) orb1.style.transform = `translate(${xRatio * 40}px, ${yRatio * 40}px)`;
+  if (orb1) orb1.style.transform = `translate(${xRatio *  40}px, ${yRatio *  40}px)`;
   if (orb2) orb2.style.transform = `translate(${xRatio * -60}px, ${yRatio * -60}px)`;
 };
 
 const handleMouseLeave = () => { cursorVisible.value = false; };
 
-// Glitch effect trigger on interval
 let glitchInterval;
 
 onMounted(() => {
   const section = heroContent.value;
   if (!section) return;
 
-  section.addEventListener('mousemove', handleMouseMove);
+  section.addEventListener('mousemove',  handleMouseMove);
   section.addEventListener('mouseleave', handleMouseLeave);
 
   // Reveal name with glitch
@@ -119,7 +136,7 @@ onMounted(() => {
 onUnmounted(() => {
   const section = heroContent.value;
   if (section) {
-    section.removeEventListener('mousemove', handleMouseMove);
+    section.removeEventListener('mousemove',  handleMouseMove);
     section.removeEventListener('mouseleave', handleMouseLeave);
   }
   clearInterval(glitchInterval);
@@ -140,15 +157,15 @@ onUnmounted(() => {
       :style="{ left: `${cursorX}px`, top: `${cursorY}px` }"
     ></div>
 
-    <!-- Background: dark canvas with gradient mesh -->
+    <!-- Background -->
     <div class="absolute inset-0 bg-white dark:bg-[#050505]"></div>
 
     <!-- Animated mesh gradient orbs -->
-    <div class="orb-1 absolute rounded-full pointer-events-none transition-transform duration-700 ease-out" 
-      style="background: radial-gradient(circle, rgba(255,90,0,0.18) 0%, transparent 70%); top: -10%; left: -15%; width: clamp(300px, 80vw, 600px); height: clamp(300px, 80vw, 600px);">
+    <div class="orb-1 absolute rounded-full pointer-events-none transition-transform duration-700 ease-out"
+      style="background: radial-gradient(circle, rgba(255,90,0,0.18) 0%, transparent 70%); top: -10%; left: -15%; width: clamp(300px,80vw,600px); height: clamp(300px,80vw,600px);">
     </div>
     <div class="orb-2 absolute rounded-full pointer-events-none transition-transform duration-700 ease-out"
-      style="background: radial-gradient(circle, rgba(120,80,255,0.14) 0%, transparent 70%); bottom: -10%; right: -10%; width: clamp(250px, 70vw, 500px); height: clamp(250px, 70vw, 500px);">
+      style="background: radial-gradient(circle, rgba(120,80,255,0.14) 0%, transparent 70%); bottom: -10%; right: -10%; width: clamp(250px,70vw,500px); height: clamp(250px,70vw,500px);">
     </div>
 
     <!-- Grain overlay -->
@@ -159,7 +176,7 @@ onUnmounted(() => {
       <div class="accent-stripe"></div>
     </div>
 
-    <!-- Grid lines background -->
+    <!-- Grid lines -->
     <div class="absolute inset-0 pointer-events-none grid-lines opacity-[0.04]"></div>
 
     <!-- Main content -->
@@ -180,7 +197,6 @@ onUnmounted(() => {
         >{{ word }}</span>
       </h1>
 
-
       <!-- Tagline -->
       <p class="font-body text-lg md:text-xl font-light tracking-wide max-w-xl leading-relaxed text-neutral-700 dark:text-neutral-400 mb-12 overflow-hidden">
         <span
@@ -194,50 +210,68 @@ onUnmounted(() => {
       <!-- Skills Carousel -->
       <div class="carousel-section mb-12 opacity-0" style="animation: fadeIn 0.8s ease-out 1.1s forwards;">
         <div class="carousel-container">
-        <!-- FIX (Bug 2): Removed fixed 152px translateX step. CSS custom property
-             --rotation-index is set reactively; the scroll uses calc() with the
-             actual item width (120px item + 32px gap = 152px) but now also
-             accounts for the container width so clipping is visible not silent.
-             overflow:hidden is kept on carousel-container — the key fix is that
-             translateX now moves by a full item slot rather than an assumed px. -->
-          <div 
+          <div
             ref="carouselContainer"
             class="carousel-scroll"
             :style="{ '--rotation-index': rotationIndex }"
           >
-            <!-- FIX (Bug 3): replaced :first-child CSS with :class="{ 'is-active': ... }"
-                 :first-child always targets the DOM-first element regardless of rotation.
-                 Now the active class tracks rotationIndex reactively. -->
-            <div 
+            <div
               v-for="(skill, index) in carouselSkills"
               :key="`skill-${index}`"
               class="carousel-skill-item"
               :class="{ 'is-active': index === rotationIndex }"
             >
-              <!-- FIX (Bug 4): added fallback '' so v-html never receives undefined -->
               <div class="skill-box">
-                <div class="skill-icon" v-html="skillLogos[skill.name] || ''"></div>
+                <!--
+                  Inline SVG (type === 'svg'):
+                  Rendered into a wrapper <div> via v-html — NOT directly onto an
+                  <svg> element. Putting v-html on <svg> replaces the element's
+                  *children* but keeps the outer tag, which produces double-nested
+                  <svg><svg>…</svg></svg> and breaks sizing. Using a <div> wrapper
+                  means v-html injects the full <svg> string as the sole child.
+                  The .skill-icon svg CSS rule then sizes it to 100% × 100%.
+                -->
+                <div
+                  v-if="getLogoInfo(skill.name).type === 'svg'"
+                  class="skill-icon"
+                  v-html="getLogoInfo(skill.name).value"
+                ></div>
+
+                <!-- URL fallback (img tag) -->
+                <img
+                  v-else-if="getLogoInfo(skill.name).type === 'url'"
+                  :src="getLogoInfo(skill.name).value"
+                  :alt="skill.name"
+                  class="skill-icon-img"
+                />
               </div>
               <span class="skill-name">{{ skill.label }}</span>
             </div>
-            <!-- Duplicate first few for seamless infinite scroll -->
+
+            <!--
+              Clone first two items for seamless infinite scroll.
+              They share the same :is-active logic as the originals.
+            -->
             <div
+              v-for="(skill, index) in carouselSkills.slice(0, 2)"
+              :key="`clone-${index}`"
               class="carousel-skill-item"
-              :class="{ 'is-active': rotationIndex === 0 }"
+              :class="{ 'is-active': index === rotationIndex }"
             >
               <div class="skill-box">
-                <div class="skill-icon" v-html="skillLogos[carouselSkills[0].name] || ''"></div>
+                <div
+                  v-if="getLogoInfo(skill.name).type === 'svg'"
+                  class="skill-icon"
+                  v-html="getLogoInfo(skill.name).value"
+                ></div>
+                <img
+                  v-else-if="getLogoInfo(skill.name).type === 'url'"
+                  :src="getLogoInfo(skill.name).value"
+                  :alt="skill.name"
+                  class="skill-icon-img"
+                />
               </div>
-              <span class="skill-name">{{ carouselSkills[0].label }}</span>
-            </div>
-            <div
-              class="carousel-skill-item"
-              :class="{ 'is-active': rotationIndex === 1 }"
-            >
-              <div class="skill-box">
-                <div class="skill-icon" v-html="skillLogos[carouselSkills[1].name] || ''"></div>
-              </div>
-              <span class="skill-name">{{ carouselSkills[1].label }}</span>
+              <span class="skill-name">{{ skill.label }}</span>
             </div>
           </div>
         </div>
@@ -250,7 +284,6 @@ onUnmounted(() => {
           <div class="w-1.5 h-1.5 bg-orange-500 rounded-full animate-pulse"></div>
           <span class="font-mono text-[11px] tracking-[0.15em] text-neutral-600 dark:text-neutral-400 uppercase">{{ profile.availability }}</span>
         </div>
-
       </div>
     </div>
 
@@ -294,16 +327,12 @@ h1 {
   letter-spacing: -0.04em;
 }
 
-/* ─── Text fill / stroke variants ─── */
-/* Styles are now applied via inline styles from getNameWordStyle() */
-
 /* ─── Name word entrance ─── */
 .name-word { transition: none; }
 .name-word.animate-fadeUp {
   opacity: 1 !important;
   animation: wordReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-
 @keyframes wordReveal {
   from { opacity: 0; transform: translateY(30px) skewY(3deg); }
   to   { opacity: 1; transform: translateY(0)   skewY(0deg); }
@@ -327,12 +356,9 @@ h1.glitch::after {
   content: attr(data-text);
   position: absolute;
   left: 0; top: 0;
-  font-family: inherit;
-  font-size: inherit;
-  font-weight: inherit;
-  line-height: inherit;
-  letter-spacing: inherit;
-  width: 100%;
+  font-family: inherit; font-size: inherit;
+  font-weight: inherit; line-height: inherit;
+  letter-spacing: inherit; width: 100%;
   pointer-events: none;
 }
 h1.glitch::before {
@@ -359,10 +385,8 @@ h1.glitch::after {
 /* ─── Diagonal accent stripe ─── */
 .accent-stripe {
   position: absolute;
-  top: -20%;
-  right: 18%;
-  width: 1px;
-  height: 160%;
+  top: -20%; right: 18%;
+  width: 1px; height: 160%;
   background: linear-gradient(to bottom, transparent, rgba(249,115,22,0.15), transparent);
   transform: rotate(15deg);
   transform-origin: top center;
@@ -394,26 +418,18 @@ h1.glitch::after {
 /* ─── Scroll dot bounce ─── */
 .scroll-dot { animation: scrollBounce 1.8s ease-in-out infinite; }
 @keyframes scrollBounce {
-  0%, 100% { transform: translateY(0);   opacity: 1; }
+  0%, 100% { transform: translateY(0);    opacity: 1; }
   80%       { transform: translateY(10px); opacity: 0; }
 }
 
 /* ─── Scroll line ─── */
 .scroll-line { animation: linePulse 2s ease-in-out infinite; }
 @keyframes linePulse {
-  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  0%, 100% { opacity: 0.3; transform: scaleY(1);   }
   50%       { opacity: 1;   transform: scaleY(0.6); }
 }
 
-/* ─── Shared animation utilities ─── */
-/* FIX (Bug 1): slideRight and fadeIn are referenced by inline `style=` attributes.
-   Inline styles are NOT scoped — they are global. Vue hashes @keyframes names
-   inside <style scoped>, so inline animations can't find them and the element
-   stays at opacity:0 forever. The fix is to declare these keyframes in a
-   separate <style> (non-scoped) block at the bottom of this file.
-   These placeholder comments keep the scoped block clean. */
-
-/* ─── Scroll indicator fadeUp ─── */
+/* ─── Scroll indicator ─── */
 [data-animate="scroll"].animate-fadeUp {
   opacity: 1 !important;
   animation: fadeIn 0.8s ease-out forwards;
@@ -433,8 +449,6 @@ h1.glitch::after {
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
 }
 
-/* FIX (Bug 2): Use CSS custom property --rotation-index set via Vue :style binding.
-   Each slot is 120px wide + 32px gap = 152px per step. */
 .carousel-scroll {
   display: flex;
   gap: 32px;
@@ -457,33 +471,32 @@ h1.glitch::after {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(124, 58, 237, 0.1) 100%);
-  border: 2px solid rgba(249, 115, 22, 0.4);
+  background: linear-gradient(135deg, rgba(249,115,22,0.15) 0%, rgba(124,58,237,0.1) 100%);
+  border: 2px solid rgba(249,115,22,0.4);
   border-radius: 16px;
   transition: all 0.3s ease;
   overflow: visible;
 }
 
-/* FIX (Bug 3): was :first-child — now .is-active tracks rotationIndex reactively */
 .carousel-skill-item.is-active .skill-box {
   width: 120px;
   height: 120px;
-  background: linear-gradient(135deg, rgba(249, 115, 22, 0.3) 0%, rgba(124, 58, 237, 0.2) 100%);
-  border-color: rgba(249, 115, 22, 0.6);
-  box-shadow: 0 12px 40px rgba(249, 115, 22, 0.25);
+  background: linear-gradient(135deg, rgba(249,115,22,0.3) 0%, rgba(124,58,237,0.2) 100%);
+  border-color: rgba(249,115,22,0.6);
+  box-shadow: 0 12px 40px rgba(249,115,22,0.25);
 }
 
 :global(.dark) .skill-box {
-  background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(124, 58, 237, 0.08) 100%);
-  border-color: rgba(249, 115, 22, 0.3);
+  background: linear-gradient(135deg, rgba(249,115,22,0.1) 0%, rgba(124,58,237,0.08) 100%);
+  border-color: rgba(249,115,22,0.3);
 }
-
 :global(.dark) .carousel-skill-item.is-active .skill-box {
-  background: linear-gradient(135deg, rgba(249, 115, 22, 0.2) 0%, rgba(124, 58, 237, 0.15) 100%);
-  border-color: rgba(249, 115, 22, 0.5);
-  box-shadow: 0 12px 40px rgba(249, 115, 22, 0.15);
+  background: linear-gradient(135deg, rgba(249,115,22,0.2) 0%, rgba(124,58,237,0.15) 100%);
+  border-color: rgba(249,115,22,0.5);
+  box-shadow: 0 12px 40px rgba(249,115,22,0.15);
 }
 
+/* ── Inline SVG icon wrapper ── */
 .skill-icon {
   width: 56px;
   height: 56px;
@@ -494,22 +507,41 @@ h1.glitch::after {
   opacity: 0.85;
 }
 
+/* The injected <svg> fills the wrapper div completely */
+.skill-icon :deep(svg) {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  display: block;
+}
+
+/* ── URL img fallback ── */
+.skill-icon-img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  display: block;
+  /* Force brand-coloured SVGs to the orange accent colour */
+  filter: brightness(0) saturate(100%) invert(58%) sepia(90%) saturate(500%) hue-rotate(349deg) brightness(100%);
+  opacity: 0.85;
+}
+
 .carousel-skill-item.is-active .skill-icon {
   width: 64px;
   height: 64px;
   opacity: 1;
   animation: floatPulse 3s ease-in-out infinite;
 }
-
-.skill-icon svg {
-  width: 100%;
-  height: 100%;
-  fill: currentColor;
+.carousel-skill-item.is-active .skill-icon-img {
+  width: 64px;
+  height: 64px;
+  opacity: 1;
+  animation: floatPulse 3s ease-in-out infinite;
 }
 
 @keyframes floatPulse {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-6px) scale(1.05); }
+  0%, 100% { transform: translateY(0)   scale(1);    }
+  50%       { transform: translateY(-6px) scale(1.05); }
 }
 
 .skill-name {
@@ -522,71 +554,40 @@ h1.glitch::after {
   opacity: 0.7;
   text-align: center;
 }
-
 .carousel-skill-item.is-active .skill-name {
   opacity: 1;
-  color: rgb(249, 115, 22);
 }
 
-:global(.dark) .skill-name {
-  color: rgb(249, 115, 22);
-}
-
-/* Mobile adjustments */
+/* ─── Mobile adjustments ─── */
 @media (max-width: 768px) {
-  .carousel-scroll {
-    gap: 24px;
-  }
-
-  .carousel-skill-item {
-    width: 100px;
-  }
-
-  .skill-box {
-    width: 80px;
-    height: 80px;
-  }
-
-  .carousel-skill-item.is-active .skill-box {
-    width: 95px;
-    height: 95px;
-  }
-
-  .skill-icon {
-    width: 44px;
-    height: 44px;
-  }
-
-  .carousel-skill-item.is-active .skill-icon {
-    width: 52px;
-    height: 52px;
-  }
-
-  .skill-name {
-    font-size: 10px;
-  }
+  .carousel-scroll       { gap: 24px; }
+  .carousel-skill-item   { width: 100px; }
+  .skill-box             { width: 80px;  height: 80px; }
+  .carousel-skill-item.is-active .skill-box { width: 95px; height: 95px; }
+  .skill-icon            { width: 44px; height: 44px; }
+  .skill-icon-img        { width: 44px; height: 44px; }
+  .carousel-skill-item.is-active .skill-icon     { width: 52px; height: 52px; }
+  .carousel-skill-item.is-active .skill-icon-img { width: 52px; height: 52px; }
+  .skill-name            { font-size: 10px; }
 }
 
-/* ─── Scroll indicator fadeUp ─── */
-
-/* ─── Mobile tweaks ─── */
 @media (max-width: 640px) {
   h1 { font-size: clamp(3rem, 14vw, 5rem); }
-  .cursor-dot { display: none; }
+  .cursor-dot  { display: none; }
   .hero-section { cursor: auto; }
-  .hero-index { font-size: clamp(12rem, 45vw, 22vw) !important; }
+  .hero-index  { font-size: clamp(12rem, 45vw, 22vw) !important; }
 }
 
-.hero-index {
-  font-size: text-[22vw];
-}
+.hero-index { font-size: text-[22vw]; }
 </style>
 
-<!-- FIX (Bug 1): Global keyframes for animations used in inline `style=` attributes.
-     Vue hashes @keyframes inside <style scoped>, so inline animations referencing
-     'fadeIn' or 'slideRight' can't find them — elements stay at opacity:0 forever.
-     Non-scoped <style> emits keyframes with their original names, which inline
-     styles can resolve correctly. -->
+<!--
+  Global keyframes for animations used in inline `style=` attributes.
+  Vue hashes @keyframes inside <style scoped>, so inline `style="animation: fadeIn …"`
+  can't find scoped keyframe names — the element stays at opacity:0 forever.
+  A non-scoped <style> block emits keyframes with their original names,
+  which inline styles can resolve correctly.
+-->
 <style>
 @keyframes fadeIn {
   from { opacity: 0; }
