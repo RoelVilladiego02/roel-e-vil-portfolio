@@ -574,6 +574,7 @@ h1.glitch::after {
 @media (max-width: 640px) {
   h1 { font-size: clamp(3rem, 14vw, 5rem); }
   .cursor-dot  { display: none; }
+  [data-animate="scroll"] { display: none; }
   .hero-section { cursor: auto; }
   .hero-index  { font-size: clamp(12rem, 45vw, 22vw) !important; }
 }
