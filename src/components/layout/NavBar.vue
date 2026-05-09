@@ -137,7 +137,7 @@ onUnmounted(() => {
           class="hidden md:inline-block px-6 py-2 bg-black dark:bg-dark-gray font-body text-sm font-medium tracking-wide text-white dark:text-white cursor-pointer border-0 relative overflow-hidden group say-hello-btn"
         >
           <span class="relative z-10 block transition-all duration-300 group-hover:scale-110">Say Hello</span>
-          <div class="absolute inset-0 bg-dark-gray dark:bg-black transition-all duration-300 -translate-x-full group-hover:translate-x-0"></div>
+          <div class="absolute inset-0 bg-dark-gray dark:bg-black transition-all duration-300 -translate-x-full group-hover:translate-x-0 pointer-events-none"></div>
         </button>
 
         <!-- Mobile Menu Button -->
