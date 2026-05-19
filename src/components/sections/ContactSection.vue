@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import { profile } from '../../data/portfolio.js';
 import { useScrollAnimation } from '../../composables/useScrollAnimation.js';
 import { useDarkMode } from '../../composables/useDarkMode.js';
+import ContactForm from '../ui/ContactForm.vue';
 
 const contactSection = ref(null);
 const { observe } = useScrollAnimation();
@@ -62,17 +63,9 @@ const socialLinks = [
         I'm always interested in hearing about new projects and opportunities. Whether you have a question or just want to say hi, feel free to reach out!
       </p>
 
-      <!-- Email CTA -->
+      <!-- Contact Form -->
       <div class="mb-12 sm:mb-16 md:mb-20 px-2">
-        <a
-          :href="`mailto:${profile.email}`"
-          class="inline-block group w-full sm:w-auto max-w-full"
-        >
-          <span class="font-display font-black text-lg sm:text-2xl md:text-4xl lg:text-6xl hover:opacity-70 transition-opacity duration-300 break-words block">
-            {{ profile.email }}
-          </span>
-          <div class="h-1 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left mt-2 sm:mt-3"></div>
-        </a>
+        <ContactForm />
       </div>
 
       <!-- Divider -->
