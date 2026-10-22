@@ -291,18 +291,39 @@ const closeOnBackdrop = (event) => {
     var(--page-bg);
 }
 
+.certificate-preview::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgb(0 0 0 / 58%) 0.75px, transparent 1px),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.24'/%3E%3C/svg%3E");
+  background-size: 5px 5px, 120px 120px;
+  content: '';
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 250ms ease;
+  mix-blend-mode: multiply;
+}
+
 .certificate-preview img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
   padding: 10px;
-  transition: transform 400ms ease;
+  transition: transform 400ms ease, filter 250ms ease;
 }
 
 .certificate-card:hover .certificate-preview img,
 .certificate-card:focus-within .certificate-preview img {
+  filter: grayscale(1) contrast(1.08);
   transform: scale(1.035);
+}
+
+.certificate-card:hover .certificate-preview::after,
+.certificate-card:focus-within .certificate-preview::after {
+  opacity: 0.72;
 }
 
 .certificate-preview-button {
@@ -449,6 +470,7 @@ const closeOnBackdrop = (event) => {
   .carousel-control,
   .certificate-card,
   .certificate-preview img,
+  .certificate-preview::after,
   .certificate-link {
     transition: none;
   }
