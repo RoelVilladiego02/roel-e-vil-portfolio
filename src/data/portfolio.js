@@ -4,6 +4,13 @@ import clinicalaguna from '../assets/images/projects/clinicalaguna.webp';
 import fortressChurch from '../assets/images/projects/fortress-church.webp';
 import befitflex from '../assets/images/projects/befitflex.webp';
 import studentInfoApp from '../assets/images/projects/itew-6-labexam.webp';
+import googleAnalyticsCertificate from '../assets/images/certificates/Google Analytics Cartification.webp';
+import hubspotCertificate from '../assets/images/certificates/Hubspot.webp';
+import aiFluencyCertificate from '../assets/images/certificates/AI Fluency Framework & Foundations.webp';
+import digitalMarketingCertificate from '../assets/images/certificates/Fundamentals of digital marketing.webp';
+import efsetCertificate from '../assets/images/certificates/EF SET Certificate.webp';
+import wadwhaniCertificate from '../assets/images/certificates/wadwhani.webp';
+import internshipCertificate from '../assets/images/certificates/Certificate of Completion.webp';
 
 export const profile = {
   name: "Roel E. Villadiego",
@@ -76,6 +83,58 @@ export const projects = [
     image: studentInfoApp,
     link: "https://itew-6-labexam.vercel.app/",
     year: "2026"
+  }
+];
+
+export const certificates = [
+  {
+    id: "01",
+    title: "Google Analytics Certification",
+    issuer: "Google Skillshop",
+    preview: googleAnalyticsCertificate,
+    link: "https://skillshop.credential.net/7e0ac45c-8e17-4b82-9676-0a2550c64fed#acc.7CuwqpcT"
+  },
+  {
+    id: "02",
+    title: "HubSpot Data Integrations Certified",
+    issuer: "HubSpot Academy",
+    preview: hubspotCertificate,
+    link: "https://app-na2.hubspot.com/academy/achievements/gk4lwswp/en/1/villadiego-roel-e/hubspot-data-integrations-certified"
+  },
+  {
+    id: "03",
+    title: "AI Fluency: Framework & Foundations",
+    issuer: "Anthropic",
+    preview: aiFluencyCertificate,
+    link: "https://verify.skilljar.com/c/29z4doydrf2s"
+  },
+  {
+    id: "04",
+    title: "Fundamentals of Digital Marketing",
+    issuer: "Google",
+    preview: digitalMarketingCertificate,
+    link: "https://skillshop.exceedlms.com/student/award/Dpbp1iVmW9HUBqDuw6RGTgfZ"
+  },
+  {
+    id: "05",
+    title: "EF SET English Certificate",
+    issuer: "EF SET",
+    preview: efsetCertificate,
+    link: "https://cert.efset.org/kmMmiL"
+  },
+  {
+    id: "06",
+    title: "Job Ready: Employability Skills (Advanced)",
+    issuer: "Wadhwani Foundation",
+    preview: wadwhaniCertificate,
+    link: "https://web.certificate.wfglobal.org/en/certificate?certificateId=6a07047e2115e1e7bf89b1a9"
+  },
+  {
+    id: "07",
+    title: "400-Hour Internship Certificate of Completion",
+    issuer: "Exceed Digital Solutions",
+    preview: internshipCertificate,
+    link: null
   }
 ];
 

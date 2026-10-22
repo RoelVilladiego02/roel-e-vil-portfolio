@@ -8,6 +8,7 @@ import HeroSection from './components/sections/HeroSection.vue'
 import AboutSection from './components/sections/AboutSection.vue'
 import WorkSection from './components/sections/WorkSection.vue'
 import SkillsSection from './components/sections/SkillsSection.vue'
+import CertificationsSection from './components/sections/CertificationsSection.vue'
 import ContactSection from './components/sections/ContactSection.vue'
 
 // Initialize dark mode
@@ -24,6 +25,7 @@ useDarkMode();
         <AboutSection />
         <WorkSection />
         <SkillsSection />
+        <CertificationsSection />
         <ContactSection />
       </main>
 

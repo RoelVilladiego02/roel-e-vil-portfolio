@@ -11,7 +11,8 @@ const navLinks = [
   { label: 'Work', href: '#work', number: '01' },
   { label: 'About', href: '#about', number: '02' },
   { label: 'Skills', href: '#skills', number: '03' },
-  { label: 'Contact', href: '#contact', number: '04' }
+  { label: 'Certifications', href: '#certifications', number: '04' },
+  { label: 'Contact', href: '#contact', number: '05' }
 ];
 
 const closeMobileMenu = () => {

@@ -23,6 +23,7 @@ const currentYear = computed(() => new Date().getFullYear());
             <a href="#work" class="font-body text-sm text-white/70 hover:text-white transition-colors duration-200 block">Work</a>
             <a href="#about" class="font-body text-sm text-white/70 hover:text-white transition-colors duration-200 block">About</a>
             <a href="#skills" class="font-body text-sm text-white/70 hover:text-white transition-colors duration-200 block">Skills</a>
+            <a href="#certifications" class="font-body text-sm text-white/70 hover:text-white transition-colors duration-200 block">Certifications</a>
             <a href="#contact" class="font-body text-sm text-white/70 hover:text-white transition-colors duration-200 block">Contact</a>
           </nav>
         </div>
