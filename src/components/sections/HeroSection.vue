@@ -15,7 +15,7 @@ const socialLinks = [
     <div class="hero-content">
       <div class="hero-intro">
         <div class="hero-portrait">
-          <img src="../../assets/images/profile.webp" :alt="profile.name" />
+          <img src="../../assets/images/portrait.webp" :alt="profile.name" />
           <span class="hero-portrait-index">01 / 05</span>
         </div>
 
