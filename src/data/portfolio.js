@@ -220,7 +220,7 @@ export const testimonials = [
 
 export const funFacts = [
   { label: "Projects Completed", value: "6+" },
-  { label: "Certifications", value: "5" },
+  { label: "Certifications", value: String(certificates.length) },
   { label: "OJT Hours", value: "400" },
   { label: "Clients Served", value: "10+" }
 ];

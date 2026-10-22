@@ -4,6 +4,16 @@ import { certificates } from '../../data/portfolio.js';
 
 const certificateDialog = ref(null);
 const selectedCertificate = ref(null);
+const certificateTrack = ref(null);
+
+const scrollCertificates = (direction) => {
+  if (!certificateTrack.value) return;
+
+  certificateTrack.value.scrollBy({
+    left: direction * certificateTrack.value.clientWidth * 0.85,
+    behavior: 'smooth'
+  });
+};
 
 const openCertificatePreview = (certificate) => {
   selectedCertificate.value = certificate;
@@ -43,59 +53,93 @@ const closeOnBackdrop = (event) => {
         </p>
       </div>
 
-      <div class="certifications-grid">
-        <article
-          v-for="certificate in certificates"
-          :key="certificate.id"
-          class="certificate-card"
-        >
-          <div class="certificate-card-top">
-            <span class="certificate-number">{{ certificate.id }}</span>
-            <span class="certificate-type">CERTIFICATE</span>
-          </div>
-          <div v-if="certificate.preview" class="certificate-preview">
+      <div class="certifications-carousel">
+        <div class="carousel-toolbar">
+          <span>{{ String(certificates.length).padStart(2, '0') }} certificates</span>
+          <div class="carousel-controls" aria-label="Certificate carousel controls">
             <button
-              v-if="!certificate.link"
-              class="certificate-preview-button"
+              class="carousel-control"
               type="button"
-              :aria-label="`Enlarge ${certificate.title}`"
-              aria-haspopup="dialog"
+              aria-label="Show previous certificates"
+              @click="scrollCertificates(-1)"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19 12H5m0 0 7 7m-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              class="carousel-control"
+              type="button"
+              aria-label="Show next certificates"
+              @click="scrollCertificates(1)"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h14m0 0-7-7m7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div
+          ref="certificateTrack"
+          class="certifications-track"
+          role="region"
+          aria-label="Certificates"
+          aria-roledescription="carousel"
+        >
+          <article
+            v-for="certificate in certificates"
+            :key="certificate.id"
+            class="certificate-card"
+          >
+            <div class="certificate-card-top">
+              <span class="certificate-number">{{ certificate.id }}</span>
+              <span class="certificate-type">CERTIFICATE</span>
+            </div>
+            <div v-if="certificate.preview" class="certificate-preview">
+              <button
+                v-if="!certificate.link"
+                class="certificate-preview-button"
+                type="button"
+                :aria-label="`Enlarge ${certificate.title}`"
+                aria-haspopup="dialog"
+                @click="openCertificatePreview(certificate)"
+              >
+                <img :src="certificate.preview" :alt="`${certificate.title} preview`" loading="lazy" />
+              </button>
+              <img
+                v-else
+                :src="certificate.preview"
+                :alt="`${certificate.title} preview`"
+                loading="lazy"
+              />
+            </div>
+            <div class="certificate-card-content">
+              <h3>{{ certificate.title }}</h3>
+              <p>{{ certificate.issuer }}</p>
+            </div>
+            <a
+              v-if="certificate.link"
+              class="certificate-link"
+              :href="certificate.link"
+              target="_blank"
+              rel="noopener noreferrer"
+              :aria-label="`View ${certificate.title}`"
+            >
+              View certificate
+              <span aria-hidden="true">↗</span>
+            </a>
+            <button
+              v-else
+              class="certificate-link certificate-preview-action"
+              type="button"
               @click="openCertificatePreview(certificate)"
             >
-              <img :src="certificate.preview" :alt="`${certificate.title} preview`" loading="lazy" />
+              Enlarge certificate
+              <span aria-hidden="true">↗</span>
             </button>
-            <img
-              v-else
-              :src="certificate.preview"
-              :alt="`${certificate.title} preview`"
-              loading="lazy"
-            />
-          </div>
-          <div class="certificate-card-content">
-            <h3>{{ certificate.title }}</h3>
-            <p>{{ certificate.issuer }}</p>
-          </div>
-          <a
-            v-if="certificate.link"
-            class="certificate-link"
-            :href="certificate.link"
-            target="_blank"
-            rel="noopener noreferrer"
-            :aria-label="`View ${certificate.title}`"
-          >
-            View certificate
-            <span aria-hidden="true">↗</span>
-          </a>
-          <button
-            v-else
-            class="certificate-link certificate-preview-action"
-            type="button"
-            @click="openCertificatePreview(certificate)"
-          >
-            Enlarge certificate
-            <span aria-hidden="true">✓</span>
-          </button>
-        </article>
+          </article>
+        </div>
       </div>
 
       <dialog
@@ -132,26 +176,87 @@ const closeOnBackdrop = (event) => {
 </template>
 
 <style scoped>
-.certifications-grid {
+.certifications-carousel {
+  min-width: 0;
+}
+
+.carousel-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  color: var(--muted-color);
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.carousel-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.carousel-control {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid var(--line-color);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease;
+}
+
+.carousel-control:hover {
+  border-color: var(--text-color);
+  background: var(--text-color);
+  color: var(--page-bg);
+}
+
+.carousel-control svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
+}
+
+.certifications-track {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  padding: 2px 2px 12px;
+  scroll-padding-inline: 2px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.certifications-track::-webkit-scrollbar {
+  display: none;
 }
 
 .certificate-card {
   display: flex;
+  flex: 0 0 calc((100% - 36px) / 3);
   min-width: 0;
-  min-height: 390px;
+  min-height: 405px;
   flex-direction: column;
   border: 1px solid var(--line-color);
-  padding: 22px;
-  background: var(--page-bg);
+  border-radius: 14px;
+  padding: 16px;
+  background: var(--panel-bg);
+  scroll-snap-align: start;
+  transition: transform 200ms ease, border-color 200ms ease, background-color 200ms ease;
 }
 
-.certificate-card:last-child:nth-child(odd) {
-  grid-column: 1 / -1;
-  width: calc(50% - 8px);
-  justify-self: center;
+.certificate-card:hover,
+.certificate-card:focus-within {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--muted-color) 55%, var(--line-color));
 }
 
 .certificate-card-top,
@@ -175,13 +280,15 @@ const closeOnBackdrop = (event) => {
 .certificate-preview {
   position: relative;
   display: grid;
-  height: 250px;
-  margin-top: 20px;
+  height: 225px;
+  margin-top: 16px;
   place-items: center;
-  isolation: isolate;
   overflow: hidden;
   border: 1px solid var(--line-color);
-  background: var(--panel-bg);
+  border-radius: 9px;
+  background:
+    radial-gradient(ellipse at 50% 100%, color-mix(in srgb, var(--muted-color) 14%, transparent), transparent 62%),
+    var(--page-bg);
 }
 
 .certificate-preview img {
@@ -189,7 +296,13 @@ const closeOnBackdrop = (event) => {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  transition: filter 300ms ease, transform 500ms ease;
+  padding: 10px;
+  transition: transform 400ms ease;
+}
+
+.certificate-card:hover .certificate-preview img,
+.certificate-card:focus-within .certificate-preview img {
+  transform: scale(1.035);
 }
 
 .certificate-preview-button {
@@ -202,62 +315,24 @@ const closeOnBackdrop = (event) => {
 }
 
 .certificate-preview-button:focus-visible {
-  outline: 2px solid var(--text-color);
-  outline-offset: -3px;
-}
-
-.certificate-preview::before,
-.certificate-preview::after {
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  pointer-events: none;
-  content: '';
-  opacity: 0;
-  transition: opacity 300ms ease;
-}
-
-.certificate-preview::before {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.48'/%3E%3C/svg%3E");
-  mix-blend-mode: multiply;
-}
-
-.certificate-preview::after {
-  background-image: radial-gradient(circle, rgb(0 0 0 / 58%) 1px, transparent 1.4px);
-  background-size: 5px 5px;
-  mix-blend-mode: multiply;
-}
-
-.certificate-card:hover .certificate-preview img,
-.certificate-card:focus-within .certificate-preview img {
-  filter: grayscale(1) contrast(1.08);
-  transform: scale(1.025);
-}
-
-.certificate-card:hover .certificate-preview::before,
-.certificate-card:focus-within .certificate-preview::before {
-  opacity: 0.2;
-}
-
-.certificate-card:hover .certificate-preview::after,
-.certificate-card:focus-within .certificate-preview::after {
-  opacity: 0.58;
+  outline-offset: -4px;
 }
 
 .certificate-card-content {
   flex: 1;
-  padding: 36px 0 28px;
+  padding: 22px 0 20px;
 }
 
 .certificate-preview + .certificate-card-content {
-  padding-top: 20px;
+  padding-top: 17px;
 }
 
 .certificate-card h3 {
   margin: 0;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
+  line-height: 1.4;
 }
 
 .certificate-card p {
@@ -270,7 +345,7 @@ const closeOnBackdrop = (event) => {
 
 .certificate-link {
   border-top: 1px solid var(--line-color);
-  padding-top: 15px;
+  padding-top: 13px;
   color: var(--text-color);
   font-size: 12px;
   transition: color 160ms ease;
@@ -283,13 +358,8 @@ const closeOnBackdrop = (event) => {
 .certificate-preview-action {
   width: 100%;
   background: transparent;
-  color: var(--muted-color);
   cursor: zoom-in;
   text-align: left;
-}
-
-.certificate-preview-action:hover {
-  color: var(--text-color);
 }
 
 .certificate-link span {
@@ -301,6 +371,7 @@ const closeOnBackdrop = (event) => {
   max-width: none;
   max-height: min(92vh, 1000px);
   border: 1px solid var(--line-color);
+  border-radius: 14px;
   padding: 0;
   overflow: auto;
   background: var(--page-bg);
@@ -358,26 +429,27 @@ const closeOnBackdrop = (event) => {
 }
 
 @media (max-width: 600px) {
-  .certifications-grid {
-    grid-template-columns: 1fr;
-  }
-
   .certificate-card {
-    grid-column: auto;
-    width: auto;
-    min-height: 360px;
-    justify-self: stretch;
+    flex-basis: min(84vw, 340px);
+    min-height: 390px;
   }
 
   .certificate-preview {
-    height: 230px;
+    height: 205px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1000px) {
+  .certificate-card {
+    flex-basis: calc((100% - 18px) / 2);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .carousel-control,
+  .certificate-card,
   .certificate-preview img,
-  .certificate-preview::before,
-  .certificate-preview::after {
+  .certificate-link {
     transition: none;
   }
 }
