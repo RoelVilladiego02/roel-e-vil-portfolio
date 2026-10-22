@@ -2,7 +2,7 @@ import auditSystem from '../assets/images/projects/audit-system.webp';
 import ccsPortal from '../assets/images/projects/ccs-comprehensive-profiling-system.webp';
 import clinicalaguna from '../assets/images/projects/clinicalaguna.webp';
 import fortressChurch from '../assets/images/projects/fortress-church.webp';
-import sunriseTelco from '../assets/images/projects/sunrise-telco.webp';
+import befitflex from '../assets/images/projects/befitflex.webp';
 import studentInfoApp from '../assets/images/projects/itew-6-labexam.webp';
 
 export const profile = {
@@ -61,11 +61,11 @@ export const projects = [
   },
   {
     id: "05",
-    title: "Sunrise Telco",
-    description: "One of my first projects in responsive web design. Built with vanilla code (plain HTML, CSS, and JavaScript) to demonstrate core web development fundamentals.",
-    tags: ["HTML", "CSS", "JavaScript", "Vercel"],
-    image: sunriseTelco,
-    link: "https://sunrise-telco.vercel.app/",
+    title: "Be Fit Flex Gym",
+    description: "Gym membership and fitness management platform for Be Fit Flex Gym Laguna, built with vanilla PHP and deployed on Railway.",
+    tags: ["PHP", "Railway"],
+    image: befitflex,
+    link: "https://befitflex.up.railway.app/",
     year: "2026"
   },
   {
@@ -83,7 +83,7 @@ export const skills = {
   languages: ["HTML", "PHP", "JavaScript", "MySQL", "CSS"],
   frameworks: ["React", "Laravel", "WordPress", "Odoo"],
   design: ["UI/UX Design", "Responsive Design", "Technical Documentation", "Wireframing"],
-  tools: ["Git", "VS Code", "Vercel", "Railway", "Google Analytics", "MySQL Workbench", "Postman"],
+  tools: ["Git", "VS Code", "Vercel", "Railway", "Hostinger", "Google Analytics", "Google Search Console", "MySQL Workbench", "Postman"],
   categories: [
     {
       name: "Frontend Development",
@@ -103,7 +103,7 @@ export const skills = {
     {
       name: "Enterprise & Deployment",
       level: 3,
-      skills: ["Odoo ERP", "Data Migration", "Vercel Deployment", "Railway Hosting", "System Integration"]
+      skills: ["Odoo ERP", "Data Migration", "Vercel Deployment", "Railway Hosting", "Hostinger Hosting", "System Integration"]
     }
   ]
 };

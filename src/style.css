@@ -703,6 +703,89 @@ html:not(.dark) .contribution-level-4 {
   color: var(--muted-color);
 }
 
+.contact-notice {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  overflow: hidden;
+  border: 1px solid var(--line-color);
+  padding: 17px 19px;
+  background:
+    linear-gradient(110deg, rgba(255, 255, 255, 0.055), transparent 68%),
+    var(--panel-bg);
+  color: var(--text-color);
+  text-align: left;
+}
+
+html:not(.dark) .contact-notice {
+  background:
+    linear-gradient(110deg, rgba(0, 0, 0, 0.035), transparent 68%),
+    var(--panel-bg);
+}
+
+.contact-notice::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 2px;
+  background: var(--text-color);
+  content: '';
+  opacity: 0.72;
+}
+
+.contact-notice-icon,
+.contact-notice-clock {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  place-items: center;
+  border: 1px solid var(--line-color);
+  border-radius: 50%;
+  color: var(--text-color);
+}
+
+.contact-notice-icon {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 15px;
+}
+
+.contact-notice-clock {
+  padding: 7px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
+}
+
+.contact-notice-copy {
+  display: grid;
+  gap: 3px;
+}
+
+.contact-notice-label {
+  color: var(--text-color);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.contact-notice-message {
+  color: var(--muted-color);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.contact-notice-countdown {
+  color: var(--text-color);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
 .portfolio-main #contact a[class*="rounded-lg"] {
   border-radius: 0;
 }
@@ -888,6 +971,11 @@ html:not(.dark) .contribution-level-4 {
 
   .portfolio-main .portfolio-footer .grid {
     gap: 28px;
+  }
+
+  .contact-notice {
+    align-items: flex-start;
+    padding: 15px;
   }
 }
 

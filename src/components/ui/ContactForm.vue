@@ -163,9 +163,15 @@ const isSubmitDisabled = computed(() => {
       <!-- Success Message -->
       <div
         v-if="formState.success"
-        class="p-4 bg-green-100 dark:bg-green-900/30 border border-green-400 dark:border-green-700 text-green-800 dark:text-green-200 rounded-lg animate-pulse"
+        class="contact-notice contact-notice--success"
+        role="status"
+        aria-live="polite"
       >
-        ✓ Message sent successfully! I'll get back to you soon.
+        <span class="contact-notice-icon" aria-hidden="true">✓</span>
+        <span class="contact-notice-copy">
+          <span class="contact-notice-label">Message delivered</span>
+          <span class="contact-notice-message">Thanks for reaching out. I'll get back to you soon.</span>
+        </span>
       </div>
 
       <!-- Error Message -->
@@ -179,11 +185,22 @@ const isSubmitDisabled = computed(() => {
       <!-- Rate Limit Warning -->
       <div
         v-if="rateLimitState.isLimited"
-        class="p-4 bg-yellow-100 dark:bg-yellow-900/30 border border-yellow-400 dark:border-yellow-700 text-yellow-800 dark:text-yellow-200 rounded-lg flex items-center gap-2"
+        class="contact-notice contact-notice--wait"
+        role="status"
+        aria-live="polite"
       >
-        <span class="text-lg">⏱️</span>
-        <span>
-          Please wait <span class="font-semibold">{{ rateLimitState.secondsRemaining }}</span> second<span v-if="rateLimitState.secondsRemaining !== 1">s</span> before sending another message.
+        <svg class="contact-notice-clock" aria-hidden="true" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 7v5l3 2" />
+        </svg>
+        <span class="contact-notice-copy">
+          <span class="contact-notice-label">A short pause</span>
+          <span class="contact-notice-message">
+            Please wait
+            <span class="contact-notice-countdown">{{ rateLimitState.secondsRemaining }}</span>
+            second<span v-if="rateLimitState.secondsRemaining !== 1">s</span>
+            before sending another message.
+          </span>
         </span>
       </div>
 
