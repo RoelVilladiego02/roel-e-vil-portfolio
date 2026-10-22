@@ -1,7 +1,7 @@
 import { ref, onMounted, watch } from 'vue';
 
 // Create isDark as a module-level singleton so all components share the same state
-const isDark = ref(false);
+const isDark = ref(true);
 let initialized = false;
 
 const applyTheme = (dark) => {
@@ -27,19 +27,9 @@ export function useDarkMode() {
     const saved = localStorage.getItem('theme');
     if (saved) {
       isDark.value = saved === 'dark';
-    } else {
-      isDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
 
-    // Also listen for OS-level theme changes (e.g. user switches system theme)
-    window
-      .matchMedia('(prefers-color-scheme: dark)')
-      .addEventListener('change', (e) => {
-        // Only follow OS if the user hasn't manually set a preference
-        if (!localStorage.getItem('theme')) {
-          isDark.value = e.matches;
-        }
-      });
+    // The portfolio defaults to dark; a saved preference always takes priority.
   });
 
   const toggle = () => {

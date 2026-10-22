@@ -8,9 +8,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ['Playfair Display', 'serif'],
-        body: ['Syne', 'sans-serif'],
-        mono: ['Space Mono', 'monospace'],
+        display: ['Roboto Slab', 'serif'],
+        body: ['DM Sans', 'sans-serif'],
+        mono: ['IBM Plex Mono', 'monospace'],
       },
       colors: {
         black: '#0a0a0a',

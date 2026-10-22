@@ -15,18 +15,20 @@ useDarkMode();
 </script>
 
 <template>
-  <div class="bg-white dark:bg-black text-black dark:text-white transition-colors duration-300">
+  <div class="portfolio-app bg-white dark:bg-black text-black dark:text-white transition-colors duration-300">
     <NavBar />
 
-    <main>
-      <HeroSection />
-      <AboutSection />
-      <WorkSection />
-      <SkillsSection />
-      <ContactSection />
-    </main>
+    <div class="portfolio-main">
+      <main>
+        <HeroSection />
+        <AboutSection />
+        <WorkSection />
+        <SkillsSection />
+        <ContactSection />
+      </main>
 
-    <Footer />
+      <Footer />
+    </div>
   </div>
 </template>
 
