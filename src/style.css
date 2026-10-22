@@ -404,6 +404,206 @@ html:not(.dark) .hero-section {
   text-transform: uppercase;
 }
 
+.github-contributions {
+  margin-top: 34px;
+  padding: 22px 0 17px;
+  border-bottom: 1px solid var(--line-color);
+}
+
+.contributions-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 17px;
+}
+
+.contributions-eyebrow {
+  margin: 0 0 6px;
+  color: var(--muted-color);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.11em;
+}
+
+.contributions-header h2 {
+  margin: 0;
+  color: var(--text-color);
+  font-family: 'Roboto Slab', serif;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.contributions-profile-link {
+  color: var(--muted-color);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  transition: color 160ms ease;
+}
+
+.contributions-profile-link:hover {
+  color: var(--text-color);
+}
+
+.contributions-summary {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 13px;
+}
+
+.contributions-total {
+  color: var(--text-color);
+  font-family: 'Roboto Slab', serif;
+  font-size: 19px;
+}
+
+.contributions-total-label {
+  color: var(--muted-color);
+  font-size: 11px;
+}
+
+.contributions-calendar-scroll {
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-color: var(--line-color) transparent;
+  scrollbar-width: thin;
+}
+
+.contributions-calendar {
+  display: flex;
+  width: max-content;
+  gap: 8px;
+}
+
+.contributions-weekdays {
+  display: grid;
+  grid-template-rows: repeat(7, 10px);
+  gap: 3px;
+  width: 26px;
+  color: var(--muted-color);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  line-height: 10px;
+}
+
+.contributions-grid {
+  display: flex;
+  gap: 3px;
+}
+
+.contributions-week {
+  display: grid;
+  grid-template-rows: repeat(7, 10px);
+  gap: 3px;
+}
+
+.contribution-day {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  transition: transform 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+}
+
+.contributions-grid .contribution-day:not(.contribution-empty):hover {
+  z-index: 1;
+  transform: scale(1.45);
+  border-color: var(--text-color);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.22);
+}
+
+.contribution-empty {
+  visibility: hidden;
+}
+
+.contribution-level-0 {
+  border-color: var(--line-color);
+  background: transparent;
+}
+
+.contribution-level-1 {
+  background: #37373b;
+}
+
+.contribution-level-2 {
+  background: #69696f;
+}
+
+.contribution-level-3 {
+  background: #a7a7ad;
+}
+
+.contribution-level-4 {
+  background: #f1f1f1;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+}
+
+html:not(.dark) .contribution-level-1 {
+  background: #e2e2e4;
+}
+
+html:not(.dark) .contribution-level-2 {
+  background: #bdbdc2;
+}
+
+html:not(.dark) .contribution-level-3 {
+  background: #77777d;
+}
+
+html:not(.dark) .contribution-level-4 {
+  background: #29292d;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);
+}
+
+.contributions-legend {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 4px;
+  margin-top: 10px;
+  color: var(--muted-color);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+}
+
+.contributions-legend .contribution-day {
+  width: 9px;
+  height: 9px;
+}
+
+.contributions-grid .contribution-day:not(.contribution-empty):hover {
+  transform: scale(1.2);
+}
+
+.contributions-legend > span:first-child {
+  margin-right: 3px;
+}
+
+.contributions-legend > span:last-child {
+  margin-left: 3px;
+}
+
+.contributions-state {
+  display: flex;
+  min-height: 83px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--muted-color);
+  font-size: 12px;
+}
+
+.contributions-error button {
+  border: 1px solid var(--line-color);
+  padding: 7px 10px;
+  background: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: 11px;
+}
+
 .hero-scroll {
   display: flex;
   align-items: center;
@@ -664,6 +864,18 @@ html:not(.dark) .hero-section {
   .hero-fact-label {
     font-size: 7px;
     line-height: 1.4;
+  }
+
+  .github-contributions {
+    margin-top: 26px;
+  }
+
+  .contributions-header {
+    align-items: start;
+  }
+
+  .contributions-profile-link {
+    padding-top: 4px;
   }
 
   .portfolio-main main > section:not(.hero-section) {

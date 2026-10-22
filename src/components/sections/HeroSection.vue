@@ -1,5 +1,6 @@
 <script setup>
 import { profile, funFacts } from '../../data/portfolio.js';
+import GithubContributions from '../ui/GithubContributions.vue';
 
 const socialLinks = [
   { label: 'GitHub', href: profile.socials.github },
@@ -47,6 +48,8 @@ const socialLinks = [
           <span class="hero-fact-label">{{ fact.label }}</span>
         </div>
       </div>
+
+      <GithubContributions />
 
       <a class="hero-scroll" href="#work">
         <span class="hero-scroll-dot" aria-hidden="true"></span>
