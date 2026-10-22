@@ -20,6 +20,8 @@ import VSCodeSvg           from '../assets/images/logo/Visual Studio Code.svg?ra
 import VercelSvg           from '../assets/images/logo/Vercel.svg?raw';
 import RailwaySvg          from '../assets/images/logo/Railway.svg?raw';
 import GoogleAnalyticsSvg  from '../assets/images/logo/Google Analytics.svg?raw';
+import GoogleSearchConsoleSvg from '../assets/images/logo/Google Search Console.svg?raw';
+import HostingerSvg        from '../assets/images/logo/hostinger.svg?raw';
 import MySQLWorkbenchSvg   from '../assets/images/logo/Mysql Workbench.svg?raw';
 import PostmanSvg          from '../assets/images/logo/Postman.svg?raw';
 import BootstrapSvg        from '../assets/images/logo/Bootstrap.svg?raw';
@@ -86,7 +88,10 @@ export const skillLogos = {
   'VS Code':           VSCodeSvg,
   'Vercel':            VercelSvg,
   'Railway':           RailwaySvg,
+  'Hostinger':         HostingerSvg,
+  'Hostinger Hosting': HostingerSvg,
   'Google Analytics':  GoogleAnalyticsSvg,
+  'Google Search Console': GoogleSearchConsoleSvg,
   'MySQL Workbench':   MySQLWorkbenchSvg,
   'Postman':           PostmanSvg,
   'Bootstrap':         BootstrapSvg,

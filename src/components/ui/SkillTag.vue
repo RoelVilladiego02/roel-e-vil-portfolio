@@ -15,6 +15,9 @@ const props = defineProps({
 });
 
 const logo = computed(() => getSkillLogo(props.label));
+const hasProminentLogo = computed(() =>
+  ['Hostinger', 'Hostinger Hosting', 'Google Analytics', 'Google Search Console'].includes(props.label)
+);
 
 // After switching to ?raw imports every logo is either an SVG string or null.
 // We keep the URL path as a fallback for any logo that somehow still resolves
@@ -44,6 +47,7 @@ const isSvgContent = computed(() =>
     <span
       v-if="isSvgContent"
       class="skill-logo-wrap w-3.5 h-3.5 inline-flex items-center justify-center flex-shrink-0"
+      :class="{ 'skill-logo-wrap--prominent': hasProminentLogo }"
       v-html="logo"
     />
 
@@ -66,12 +70,29 @@ span {
   cursor: default;
 }
 
+:global(html.dark .skill-tag.bg-warm-gray) {
+  border-color: #343438;
+  background-color: #171719;
+  color: #ededed;
+}
+
+:global(html.dark .skill-tag.bg-warm-gray:hover) {
+  border-color: #ededed;
+  background-color: #ededed;
+  color: #0b0b0c;
+}
+
 /* ── Inline SVG: size + colour inheritance ── */
 .skill-logo-wrap :deep(svg) {
   width: 100%;
   height: 100%;
   fill: currentColor;
   display: block;
+}
+
+.skill-logo-wrap--prominent {
+  width: 18px;
+  height: 18px;
 }
 
 /* ── URL img: force black, invert to white on hover ── */

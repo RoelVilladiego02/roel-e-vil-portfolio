@@ -1,4 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Roboto+Slab:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@300;400;500;600;700&display=swap');
+
+@font-face {
+  font-family: 'Geist Pixel';
+  src: url('https://cdn.jsdelivr.net/gh/vercel/geist-pixel-font@main/fonts/webfonts/GeistPixel-Square.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
 
 @tailwind base;
 @tailwind components;
@@ -6,7 +14,7 @@
 
 :root {
   color-scheme: dark;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Geist', Inter, system-ui, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -47,7 +55,7 @@ body {
 }
 
 body, button, a {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Geist', Inter, system-ui, sans-serif;
 }
 
 button, a {
@@ -110,7 +118,7 @@ a:focus-visible {
   height: 28px;
   place-items: center;
   border: 1px solid var(--line-color);
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Geist Mono', ui-monospace, monospace;
   font-size: 10px;
   font-weight: 600;
 }
@@ -139,7 +147,7 @@ a:focus-visible {
 
 .side-link-number {
   color: #68686d;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Geist Mono', ui-monospace, monospace;
   font-size: 10px;
 }
 
@@ -152,7 +160,7 @@ a:focus-visible {
   display: block;
   margin-bottom: 11px;
   color: #77777c;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Geist Mono', ui-monospace, monospace;
   font-size: 9px;
   letter-spacing: 0.12em;
 }
@@ -208,7 +216,7 @@ a:focus-visible {
 .theme-state {
   margin-left: auto;
   color: #77777c;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Geist Mono', ui-monospace, monospace;
   font-size: 9px;
 }
 
@@ -227,7 +235,7 @@ a:focus-visible {
 .side-contact > a {
   overflow-wrap: anywhere;
   color: var(--text-color);
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Geist Mono', ui-monospace, monospace;
   font-size: 11px;
 }
 
@@ -305,7 +313,7 @@ html:not(.dark) .hero-section {
   right: 0;
   bottom: 11px;
   color: var(--muted-color);
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Geist Mono', ui-monospace, monospace;
   font-size: 9px;
   letter-spacing: 0.08em;
 }
@@ -313,7 +321,7 @@ html:not(.dark) .hero-section {
 .eyebrow {
   margin: 0 0 15px;
   color: var(--muted-color);
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Geist Mono', ui-monospace, monospace;
   font-size: 10px;
   letter-spacing: 0.12em;
 }
@@ -325,7 +333,7 @@ html:not(.dark) .hero-section {
 .hero-copy h1 {
   margin: 0 0 20px;
   color: var(--text-color);
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Geist Pixel', 'Geist Mono', monospace;
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 600;
   letter-spacing: -0.055em;
@@ -357,7 +365,7 @@ html:not(.dark) .hero-section {
 
 .hero-links a {
   color: var(--muted-color);
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Geist Mono', ui-monospace, monospace;
   font-size: 10px;
   transition: color 160ms ease;
 }
@@ -391,14 +399,14 @@ html:not(.dark) .hero-section {
 
 .hero-fact-value {
   color: var(--text-color);
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Geist Pixel', 'Geist Mono', monospace;
   font-size: 22px;
   line-height: 1;
 }
 
 .hero-fact-label {
   color: var(--muted-color);
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Geist Mono', ui-monospace, monospace;
   font-size: 9px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -421,7 +429,7 @@ html:not(.dark) .hero-section {
 .contributions-eyebrow {
   margin: 0 0 6px;
   color: var(--muted-color);
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Geist Mono', ui-monospace, monospace;
   font-size: 9px;
   letter-spacing: 0.11em;
 }
@@ -429,14 +437,14 @@ html:not(.dark) .hero-section {
 .contributions-header h2 {
   margin: 0;
   color: var(--text-color);
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Geist Pixel', 'Geist Mono', monospace;
   font-size: 17px;
   font-weight: 500;
 }
 
 .contributions-profile-link {
   color: var(--muted-color);
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Geist Mono', ui-monospace, monospace;
   font-size: 9px;
   transition: color 160ms ease;
 }
@@ -454,7 +462,7 @@ html:not(.dark) .hero-section {
 
 .contributions-total {
   color: var(--text-color);
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Geist Pixel', 'Geist Mono', monospace;
   font-size: 19px;
 }
 
@@ -482,7 +490,7 @@ html:not(.dark) .hero-section {
   gap: 3px;
   width: 26px;
   color: var(--muted-color);
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Geist Mono', ui-monospace, monospace;
   font-size: 8px;
   line-height: 10px;
 }
@@ -564,7 +572,7 @@ html:not(.dark) .contribution-level-4 {
   gap: 4px;
   margin-top: 10px;
   color: var(--muted-color);
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Geist Mono', ui-monospace, monospace;
   font-size: 8px;
 }
 
@@ -611,7 +619,7 @@ html:not(.dark) .contribution-level-4 {
   width: fit-content;
   margin-top: 25px;
   color: var(--muted-color);
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Geist Mono', ui-monospace, monospace;
   font-size: 9px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -638,7 +646,7 @@ html:not(.dark) .contribution-level-4 {
 }
 
 .portfolio-main main > section:not(.hero-section) h2 {
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Geist Pixel', 'Geist Mono', monospace;
   font-size: clamp(1.9rem, 4vw, 3rem);
   font-weight: 600;
   letter-spacing: -0.045em;
@@ -746,7 +754,7 @@ html:not(.dark) .contact-notice {
 }
 
 .contact-notice-icon {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Geist Mono', ui-monospace, monospace;
   font-size: 15px;
 }
 
@@ -765,7 +773,7 @@ html:not(.dark) .contact-notice {
 
 .contact-notice-label {
   color: var(--text-color);
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Geist Mono', ui-monospace, monospace;
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -780,7 +788,7 @@ html:not(.dark) .contact-notice {
 
 .contact-notice-countdown {
   color: var(--text-color);
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Geist Mono', ui-monospace, monospace;
   font-size: 12px;
   font-weight: 600;
   font-variant-numeric: tabular-nums;

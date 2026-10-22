@@ -8,9 +8,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ['Roboto Slab', 'serif'],
-        body: ['DM Sans', 'sans-serif'],
-        mono: ['IBM Plex Mono', 'monospace'],
+        display: ['Geist Pixel', 'Geist Mono', 'monospace'],
+        body: ['Geist', 'Inter', 'system-ui', 'sans-serif'],
+        mono: ['Geist Mono', 'ui-monospace', 'monospace'],
       },
       colors: {
         black: '#0a0a0a',
